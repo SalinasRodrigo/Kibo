@@ -1,0 +1,10 @@
+*.pdf
+*.xlsx
+*.zip
+*.pem
+venv
+/venv
+venv/
+/venv/
+python/deployment
+/key
