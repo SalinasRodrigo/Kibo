@@ -1,0 +1,14 @@
+/*Barra de navegacion*/
+
+.navbar-collapse {
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.navbar-brand img{
+    width: 80px;
+}
+
+#buscador {
+    width: 800px;
+}
