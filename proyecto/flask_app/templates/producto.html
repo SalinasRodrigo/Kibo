@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kibo</title>
+</head>
+<body>
+    <form action="{{url_for('registrar_categoria')}}" method="post">
+        <label for="nombre_categoria">Categoría:</label>
+        <input type="text" name="nombre" id="nombre_categoria">
+        <button type="submit">Agregar</button>
+    </form>
+    <form action="{{url_for('registrar_marca')}}" method="post">
+        <label for="nombre_marca">Marca:</label>
+        <input type="text" name="nombre" id="nombre_marca">
+        <button type="submit">Agregar</button>
+    </form>
+    <form action="{{url_for('registrar_producto')}}" autocomplete="off" enctype="multipart/form-data" method="post">
+        <label for="nombre_producto">Nombre:</label>
+        <input type="text" name="nombre" id="nombre_producto">
+        <label for="descripcion">Descripción:</label>
+        <textarea name="descripcion" id="descripcion"></textarea>
+        <label for="precio">Precio:</label>
+        <input type="number" name="precio" id="precio">
+        <label for="imagen">Imagen:</label>
+        <input type="file" accept=".jpeg, .png, .jpg" name="imagen">
+        <label for="stock_ideal">Stock Ideal:</label>
+        <input type="number" name="stock_ideal" id="stock_ideal">
+        <label for="stock_disponible">Stock Disponible:</label>
+        <input type="number" name="stock_disponible" id="stock_disponible">
+        <select name="marca">
+            {%for marca in marcas%}
+                <option value="{{marca.id}}">{{marca.nombre}}</option>
+            {% endfor%}
+        </select>
+        <select name="categoria">
+            {%for categoria in categorias%}
+                <option value="{{categoria.id}}">{{categoria.nombre}}</option>
+            {% endfor%}
+        </select>
+        <button type="submit">Agregar</button>
+    </form>
+</body>
+</html>

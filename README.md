@@ -3,3 +3,4 @@ Integranes
 -Rogrigo Salinas
 -Tadeo Molinas
 -Alison Ibarrola
+-Victor Gimenez
