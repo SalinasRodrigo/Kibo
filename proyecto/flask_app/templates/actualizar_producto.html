@@ -20,7 +20,8 @@
         <link rel="stylesheet" href="../static/css/style.css">
         <!-- javascript -->
         <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-        <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>  
+        <script src="{{ url_for('static', filename='js/mensaje_producto_update.js') }}"></script>  
+        <script src="{{ url_for('static', filename='js/llenar_producto.js') }}"></script> 
         <!--font--> 
     </head>
     <body>
@@ -63,7 +64,7 @@
                             {% for producto in productos %}
                                 <tr>
                                     <td>
-                                        <p class="text-start">{{producto.id}} {{producto.nombre}} {{producto.precio}} <a href="/#">Actualizar</a></p>
+                                        <p class="text-start">{{producto.id}} {{producto.nombre}} {{producto.precio}} <button onclick="completar_informacion('{{producto.id}}')">Actualizar</button> <a href="/reponer_stock/{{producto.id}}">Reponer Stock</a></p>
                                     </td>
                                 </tr>
                             {% endfor %}
@@ -71,7 +72,7 @@
                     </table>
                 </div>
                 
-                <form action="{{url_for('proceso_actualizar_producto')}}" autocomplete="off" method="post">
+                <form action="{{url_for('proceso_actualizar_producto')}}" autocomplete="off" enctype="multipart/form-data" method="post" id="formulario_producto">
                     <h3 class="text-primary">Actualizar Datos.</h3>
                     <div class="form-group">
                         <label for="nombre_producto">Nombre:</label>
@@ -102,21 +103,29 @@
                         <input type="number" name="descuento" id="descuento">
                     </div>
                     <div class="form-group">
-                        <select name="marca">
+                        <label>Marca:</label>
+                        <select name="marca" id="marca">
                             {%for marca in marcas%}
                                 <option value="{{marca.id}}">{{marca.nombre}}</option>
-                            {% endfor%}
+                            {% endfor %}
                         </select>
                     </div>
                     <div class="form-group">
-                        <select name="categoria">
+                        <label>Categoria:</label>
+                        <select name="categoria" id="categoria">
                             {%for categoria in categorias%}
                                 <option value="{{categoria.id}}">{{categoria.nombre}}</option>
-                            {% endfor%}
+                            {% endfor %}
                         </select>
                     </div>
+                    <input type="hidden" name="id" id="id">
                     <input type="submit" value="Atualizar" class="btn btn-primary">
                 </form>
+            </div>
+            <div class="mensaje">
+                <h2>¡Advertencia!</h2>
+                <ul id="error"></ul>
+                <button id="aceptar" class="botones">Aceptar</button>
             </div>
         </main>
     </body>
