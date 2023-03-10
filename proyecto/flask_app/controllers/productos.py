@@ -9,7 +9,7 @@ from ..models.producto import Producto
 
 @app.route('/producto')
 def producto():
-    return render_template('producto.html', marcas = Marca.get_all(), categorias = Categoria.get_all())
+    return render_template('producto.html', marcas = Marca.get_all(), categorias = Categoria.get_all(), productos = Producto.get_all())
 
 @app.route('/process_producto', methods=['POST'])
 def registrar_producto():

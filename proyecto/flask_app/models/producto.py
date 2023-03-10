@@ -24,7 +24,17 @@ class Producto:
         for row in results:
             productos.append(cls(row))
         return productos
-    
+
+    @classmethod
+    def get_one(cls, data):
+        query = "SELECT * FROM productos WHERE id = %(id)s;"
+        mysql = connectToMySQL('proyecto_grupal_bd',data)
+        result = mysql.query_db(query)
+        if len(result) > 0:
+            return cls(result[0])
+        else:
+            return None
+
     @classmethod
     def get_stock(cls, data):
         query = "SELECT stock_disponible FROM productos WHERE id = %(id)s;"
@@ -55,6 +65,11 @@ class Producto:
         return connectToMySQL('proyecto_grupal_bd').query_db(query, data)
     
     @classmethod
+    def update_descuento(cls, data):
+        query = "UPDATE producto SET descuento = %(descuento)s WHERE id = %(id)s"
+        return connectToMySQL('proyecto_grupal_bd').query_db(query, data)
+    
+    @classmethod
     def update_venta(cls, data):
         query = "UPDATE producto SET stock_disponible = stock_disponible - %(cantidad)s WHERE id = %(id)s"
         return connectToMySQL('proyecto_grupal_bd').query_db(query, data)
@@ -68,5 +83,19 @@ class Producto:
             return result[0]['siguiente'] + 1
         else:
             return 1
+        
+    @staticmethod
+    def obtener_precio(id):
+        query = "SELECT precio, descuento FROM productos WHERE id = %(id)s;"
+        data = {
+            "id" : id
+        }
+        mysql = connectToMySQL('proyecto_grupal_bd')
+        result = mysql.query_db(query,data)
+        if result[0]["descuento"] == 0:
+            return result[0]['precio']
+        else:
+            precio = result[0]['precio'] -  result[0]['precio'] * result[0]['descuento'] / 100
+            return int(precio)
 
 
