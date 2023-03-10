@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <!--metadatos-->
+        <meta charset="UTF-8">
+        <meta name="author" content="Alison Ibarrola">
+        <meta name="description" content="aplicación web para venta de productos electrónicos.">
+        <meta name="keywords" content="ventas, informática, electrónico, productos, electrónica">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!--título-->
+        <title>Kibo</title>
+        <!--favicon-->
+        <link rel="icon" type="image/x-icon" href="#">
+        <!-- javascript -->
+        <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+        <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>  
+        <!--bootsrap-->
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.css') }}">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+        <!--css-->
+        <link rel="stylesheet" href="../static/css/style.css">
+        <!--font--> 
+    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-md  navbar-dark bg-dark ">
+                <div class="container-fluid">
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-toggler" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbar-toggler">
+                        <a class="navbar-brand" href="#">
+                            <img src="../static/images/logo_principal.svg" alt="logo de la pagina web">
+                        </a>
+                        <form id="buscador" class="d-flex" role="search" action="#" method="post">
+                            <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Buscar">
+                            <button class="btn btn-primary" type="submit">Buscar</button>
+                        </form>
+                        <div class="navbar-nav d-flex">
+                            <ul class="navbar-nav d-flex justify-content-center align-items-center">
+                                <li class="nav-item">
+                                    <a class="nav-link active" href="#">Mi cuenta</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link active" href="#">Carrito</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link active" href="#">Cerrar sesión</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <main>
+            <div class="mt-5 pt-5 pl-5 pr-5">
+                <form action="">
+                    <div class="d-flex justify-content-around">
+                        <div class="lista_productos">
+                            <table class="table table-borderless">
+                                <thead>
+                                    <th>Producto</th>
+                                    <th>Costo</th>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Nombre Producto</td>
+                                        <td>100.000Gs.</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Nombre Producto</td>
+                                        <td>100.000Gs.</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Nombre Producto</td>
+                                        <td>100.000Gs.</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Nombre Producto</td>
+                                        <td>100.000Gs.</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Nombre Producto</td>
+                                        <td>100.000Gs.</td>
+                                    </tr>
+                                    <tr class="border-top">
+                                        <th>Costo Total</th>
+                                        <td>500.000Gs.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="info_compra">
+                            <div class="row justify-content-around">
+                                <div class="form-group">
+                                    <label for="nombre">Nombre</label>
+                                    <input type="text" class="form-control" id="nombre" name="nombre" >
+                                </div>
+                                <div class="form-group">
+                                    <label for="apellido">Apellido</label>
+                                    <input type="text" class="form-control" id="apellido" name="apellido" >
+                                </div>
+                            </div>
+                            <div class="row justify-content-around pt-3">
+                                <div class="form-group">
+                                    <label for="telefono">Telefono</label>
+                                    <input type="number" class="form-control" id="telefono" name="telefono" >
+                                </div>
+                                <div class="form-group">
+                                    <label for="email">Email</label>
+                                    <input type="email" class="form-control" id="email" name="email" >
+                                </div>
+                            </div>
+                            <div class="row pt-3 pl-1 pr-1">
+                                <div class="form-group w-100">
+                                    <label for="direccion">Dirección</label>
+                                    <input type="text" class="form-control w-100" id="direccion" name="direccion" >
+                                </div>
+                            </div>
+                            <h3 class="pt-3">Medio de pago:</h3>
+                            <div class="row justify-content-start pt-2 pl-4">
+                                <div class="form-group d-flex ">
+                                    <label for="medio" class="mb-0 mr-2">Paypal</label>
+                                    <input type="radio" class="form-control" id="medio" name="medio" >
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-end ">
+                                <input type="submit" class="btn btn-primary" value="Terminar compra">
+                            </div>
+                        </div>
+                    </div>
+                    
+                </form>
+            </div>
+        </main>        
+    </body>
+</html>
