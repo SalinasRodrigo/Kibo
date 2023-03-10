@@ -139,3 +139,5 @@ def proceso_actualizar_producto():
         return redirect('/modificar_producto')
     else:
         return redirect('/modificar_producto')
+
+
