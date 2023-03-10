@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--css-->
+    <link rel="stylesheet" href="../static/css/style.css">
+    <!-- javascript -->
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="{{ url_for('static', filename='js/mensaje_producto_registro.js') }}"></script>  
     <title>Kibo</title>
 </head>
 <body>
@@ -17,7 +22,7 @@
         <input type="text" name="nombre" id="nombre_marca">
         <button type="submit">Agregar</button>
     </form>
-    <form action="{{url_for('registrar_producto')}}" autocomplete="off" enctype="multipart/form-data" method="post">
+    <form action="{{url_for('registrar_producto')}}" autocomplete="off" enctype="multipart/form-data" method="post" id="formulario_producto">
         <label for="nombre_producto">Nombre:</label>
         <input type="text" name="nombre" id="nombre_producto">
         <label for="descripcion">Descripción:</label>
@@ -30,11 +35,13 @@
         <input type="number" name="stock_ideal" id="stock_ideal">
         <label for="stock_disponible">Stock Disponible:</label>
         <input type="number" name="stock_disponible" id="stock_disponible">
+        <label>Marca:</label>
         <select name="marca">
             {%for marca in marcas%}
                 <option value="{{marca.id}}">{{marca.nombre}}</option>
             {% endfor%}
         </select>
+        <label>Categoria:</label>
         <select name="categoria">
             {%for categoria in categorias%}
                 <option value="{{categoria.id}}">{{categoria.nombre}}</option>
@@ -42,5 +49,10 @@
         </select>
         <button type="submit">Agregar</button>
     </form>
+    <div class="mensaje">
+        <h2>¡Advertencia!</h2>
+        <ul id="error"></ul>
+        <button id="aceptar" class="botones">Aceptar</button>
+    </div>
 </body>
 </html>

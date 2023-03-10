@@ -26,12 +26,15 @@ class Producto:
         return productos
 
     @classmethod
-    def get_one(cls, data):
+    def get_one(cls, id):
         query = "SELECT * FROM productos WHERE id = %(id)s;"
-        mysql = connectToMySQL('proyecto_grupal_bd',data)
-        result = mysql.query_db(query)
+        data = {
+            "id" : id
+        }
+        mysql = connectToMySQL('proyecto_grupal_bd')
+        result = mysql.query_db(query, data)
         if len(result) > 0:
-            return cls(result[0])
+            return result[0]
         else:
             return None
 
@@ -55,23 +58,21 @@ class Producto:
     @classmethod
     def update_producto(cls, data):
         query = """UPDATE productos SET nombre = %(nombre)s, descripcion = %(descripcion)s, precio = %(precio)s, 
-        stock_ideal = %(stock_ideal)s, stock_disponible = %(stock_disponible)s, updated_at = %(updated_at)s,
+        stock_ideal = %(stock_ideal)s, stock_disponible = %(stock_disponible)s, updated_at = NOW(),
         marca_id = %(marca_id)s, descuento= %(descuento)s, categoria_id = %(categoria_id)s WHERE id = %(id)s"""
         return connectToMySQL('proyecto_grupal_bd').query_db(query, data)
 
     @classmethod
-    def update_stock(cls, data):
-        query = "UPDATE producto SET stock_disponible = stock_ideal WHERE id = %(id)s"
-        return connectToMySQL('proyecto_grupal_bd').query_db(query, data)
-    
-    @classmethod
-    def update_descuento(cls, data):
-        query = "UPDATE producto SET descuento = %(descuento)s WHERE id = %(id)s"
+    def update_stock(cls, id):
+        query = "UPDATE productos SET stock_disponible = stock_ideal WHERE id = %(id)s"
+        data = {
+            "id" : id
+        }
         return connectToMySQL('proyecto_grupal_bd').query_db(query, data)
     
     @classmethod
     def update_venta(cls, data):
-        query = "UPDATE producto SET stock_disponible = stock_disponible - %(cantidad)s WHERE id = %(id)s"
+        query = "UPDATE productos SET stock_disponible = stock_disponible - %(cantidad)s WHERE id = %(id)s"
         return connectToMySQL('proyecto_grupal_bd').query_db(query, data)
     
     @staticmethod
