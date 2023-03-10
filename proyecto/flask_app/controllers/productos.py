@@ -139,3 +139,7 @@ def proceso_actualizar_producto():
         return redirect('/modificar_producto')
     else:
         return redirect('/modificar_producto')
+    
+@app.route('/producto_seleccionado')
+def producto_seleccinado():
+    return render_template('producto_seleccionado.html')
