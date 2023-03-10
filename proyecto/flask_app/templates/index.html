@@ -12,15 +12,15 @@
         <title>Kibo</title>
         <!--favicon-->
         <link rel="icon" type="image/x-icon" href="#">
+        <!-- javascript -->
+        <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+        <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>  
         <!--bootsrap-->
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.css') }}">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
         <!--css-->
         <link rel="stylesheet" href="../static/css/style.css">
-        <!-- javascript -->
-        <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-        <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>  
         <!--font--> 
     </head>
     <body>
@@ -41,13 +41,13 @@
                         <div class="navbar-nav d-flex">
                             <ul class="navbar-nav d-flex justify-content-center align-items-center">
                                 <li class="nav-item">
-                                    <a class="nav-link active" href="#">Mi cuenta</a>
-                                </li>
-                                <li class="nav-item">
                                     <a class="nav-link active" href="#">Carrito</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link active" href="#">Cerrar sesión</a>
+                                    <a class="nav-link active" data-toggle="modal" data-target="#registro">Registrarse</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link active" data-toggle="modal" data-target="#inicio">Iniciar Sesión</a>
                                 </li>
                             </ul>
                         </div>
@@ -186,5 +186,67 @@
                 </div>
             </div>
         </main>
+        <div class="modal fade" id="inicio">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <!-- cabecera del diálogo -->
+                    <div class="modal-header">
+                        <h4 class="modal-title">Login</h4>
+                        <button type="button" class="close" data-dismiss="modal">X</button>
+                    </div>
+                    <!-- cuerpo del diálogo -->
+                    <form action="" method="POST">
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="email">Email:</label>
+                                <input class="form-control" type="text" name="email">
+                                <label for="contraseña">Password:</label>
+                                <input class="form-control" id="contraseña" type="password" name="contraseña">
+                            </div>
+                        </div>
+                    
+                        <!-- pie del diálogo -->
+                        <div class="modal-footer">
+                            <input type="submit" class="btn btn-primary mt-2">    
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="registro">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <!-- cabecera del diálogo -->
+                    <div class="modal-header">
+                        <h4 class="modal-title">Register</h4>
+                        <button type="button" class="close" data-dismiss="modal">X</button>
+                    </div>
+                    <!-- cuerpo del diálogo -->
+                    <form action="" method="POST">
+                        <div class="modal-body">
+                            
+                            <div class="form-group">    
+                                <label for="nombre">First Name:</label>
+                                <input class="form-control" id="nombre" type="text" name="nombre">
+                                <label for="apellido">Last Name:</label>
+                                <input class="form-control" id="apellido" type="text" name="apellido">
+                                <label for="ci">CI:</label>
+                                <input class="form-control" id="ci" type="number" name="ci">
+                                <label for="email">Email:</label>
+                                <input class="form-control" id="email" type="text" name="email">
+                                <label for="contraseña">Password:</label>
+                                <input class="form-control" id="contraseña" type="password" name="contraseña">
+                                <label for="confi">Confirmacion:</label>
+                                <input class="form-control" id="confi" type="password" name="confi">  
+                            </div>
+                        </div>
+                        <!-- pie del diálogo -->
+                        <div class="modal-footer">
+                            <input type="submit" class="btn btn-primary mt-2">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </body>
 </html>

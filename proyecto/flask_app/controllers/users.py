@@ -10,3 +10,7 @@ from ..models.producto import Producto
 @app.route('/')
 def index():
     return render_template('index.html')
+
+@app.route('/pedido')
+def pedido():
+    return render_template('finalizar_pedido.html')

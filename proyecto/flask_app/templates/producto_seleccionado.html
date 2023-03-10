@@ -55,7 +55,7 @@
             </div>
         </nav>
     </header>
-    <main>
+    <main class="d-flex justify-content-around mt-5">
         <div class="card" style="width: 18rem;">
             <p class="descuento">-0%</p>
             <img class="card-img-top" src="{{ url_for('static', filename='assets/1.jpg') }}" alt="Card image cap">
@@ -63,6 +63,18 @@
                 <h5 class="card-title">Nombre del producto</h5>
                 <p>Precio: 100.000 Gs.</p>
             </div>
+        </div>
+        <div class="card" style="width: 18rem;">
+            <h3>Nombre del producto</h3>
+            <p class="text-start">Categoría: Categoría</p>
+            <p>Precio:</p>
+            <p>100.000 Gs.</p>
+            <p>Medios de Pagos:</p>
+            <img src="{{ url_for('static', filename='images/paypal.svg') }}" alt="paypal logo">
+            <form action="/#" method="post">
+                <input type="number" min="0">
+                <button type="submit">Añadir al carrito</button>
+            </form>
         </div>
     </main>
     

@@ -53,6 +53,18 @@
     border-radius: 15%;
 }
 
+.lista_productos{
+    width: 30%;
+}
+
+.info_compra{
+    width: 30%;
+}
+
+.border-top{
+    border-top: 1.5px solid #abb0b4 !important;
+}
+
 /* Mensaje Advertencia */
 
 .mensaje{
@@ -71,3 +83,6 @@
 .mensaje h2{
     margin: 0;
 }
+
+
+
