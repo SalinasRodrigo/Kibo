@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <!--metadatos-->
+        <meta charset="UTF-8">
+        <meta name="author" content="Alison Ibarrola">
+        <meta name="description" content="aplicación web para venta de productos electrónicos.">
+        <meta name="keywords" content="ventas, informática, electrónico, productos, electrónica">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!--título-->
+        <title>Kibo</title>
+        <!--favicon-->
+        <link rel="icon" type="image/x-icon" href="#">
+        <!--bootsrap-->
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.css') }}">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+        <!--css-->
+        <link rel="stylesheet" href="../static/css/style.css">
+        <!-- javascript -->
+        <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+        <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>  
+        <!--font--> 
+    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-md  navbar-dark bg-dark ">
+                <div class="container-fluid">
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-toggler" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbar-toggler">
+                        <a class="navbar-brand" href="#">
+                            <img src="../static/images/logo_principal.svg" alt="logo de la pagina web">
+                        </a>
+                        <form id="buscador" class="d-flex" role="search" action="#" method="post">
+                            <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Buscar">
+                            <button class="btn btn-primary" type="submit">Buscar</button>
+                        </form>
+                        <div class="navbar-nav d-flex">
+                            <ul class="navbar-nav d-flex justify-content-center align-items-center">
+                                <li class="nav-item">
+                                    <a class="nav-link active" href="#">Mi cuenta</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link active" href="#">Carrito</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link active" href="#">Cerrar sesión</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <main class="d-flex justify-content-around">
+                <div class="container-sm col-7">
+                    <h3 class="text-start">Productos</h3>
+                    <table class="table table-striped table-hover">
+                        <tbody>
+                            {% for producto in productos %}
+                                <tr>
+                                    <td>
+                                        <p class="text-start">{{producto.id}} {{producto.nombre}} {{producto.precio}} <a href="/#">Actualizar</a></p>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                
+                <form action="{{url_for('proceso_actualizar_producto')}}" autocomplete="off" method="post">
+                    <h3 class="text-primary">Actualizar Datos.</h3>
+                    <div class="form-group">
+                        <label for="nombre_producto">Nombre:</label>
+                        <input type="text" name="nombre" id="nombre_producto">
+                    </div>
+                    <div class="form-group">
+                        <label for="descripcion">Descripción:</label>
+                        <textarea name="descripcion" id="descripcion"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="precio">Precio:</label>
+                        <input type="number" name="precio" id="precio">
+                    </div>
+                    <div class="form-group">
+                        <label for="imagen">Imagen:</label>
+                        <input type="file" accept=".jpeg, .png, .jpg" name="imagen">
+                    </div>
+                    <div class="form-group">
+                        <label for="stock_ideal">Stock Ideal:</label>
+                        <input type="number" name="stock_ideal" id="stock_ideal">
+                    </div>
+                    <div class="form-group">
+                        <label for="stock_disponible">Stock Disponible:</label>
+                        <input type="number" name="stock_disponible" id="stock_disponible">
+                    </div>
+                    <div class="form-group">
+                        <label for="descuento">Descuento:</label>
+                        <input type="number" name="descuento" id="descuento">
+                    </div>
+                    <div class="form-group">
+                        <select name="marca">
+                            {%for marca in marcas%}
+                                <option value="{{marca.id}}">{{marca.nombre}}</option>
+                            {% endfor%}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <select name="categoria">
+                            {%for categoria in categorias%}
+                                <option value="{{categoria.id}}">{{categoria.nombre}}</option>
+                            {% endfor%}
+                        </select>
+                    </div>
+                    <input type="submit" value="Atualizar" class="btn btn-primary">
+                </form>
+            </div>
+        </main>
+    </body>
+</html>

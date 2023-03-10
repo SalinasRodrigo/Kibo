@@ -72,3 +72,26 @@ def registrar_marca():
         return redirect('/producto')
     else:
         return redirect('/producto')
+    
+@app.route('/actualizar_producto')
+def actualizar_producto():
+    return render_template('actualizar_producto.html', productos = Producto.get_all())
+
+@app.route('/process_actualizar_producto', methods=['POST'])
+def proceso_actualizar_producto():
+    if request.method == 'POST':
+        data = {
+            "nombre": request.form["nombre"],
+            "descripcion": request.form["descripcion"],
+            "precio": request.form["precio"],
+            "imagen": path_database,
+            "stock_ideal": request.form["stock_ideal"],
+            "stock_disponible": request.form["stock_disponible"],
+            "descuento": request.form["descuento"],
+            "marca_id": request.form["marca"],
+            "categoria_id": request.form["categoria"]
+        }
+        Producto.update_producto(data)
+        return redirect('/actualizar_producto')
+    else:
+        return redirect('/actualizar_producto')
