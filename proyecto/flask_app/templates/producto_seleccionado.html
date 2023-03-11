@@ -20,7 +20,7 @@
         <link rel="stylesheet" href="../static/css/style.css">
         <!-- javascript -->
         <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-        <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>  
+        <script src="{{ url_for('static', filename='js/desaparecer_boton.js') }}"></script>  
         <!--font--> 
     </head>
 <body>
@@ -77,6 +77,20 @@
                 <button type="submit">Añadir al carrito</button>
             </form>
         </div>
+        <!--Errores Flash-->
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <div class="mensaje_flash">
+            <h2>¡Advertencia!</h2>
+            <ul>
+            {% for message in messages %}
+                <li>{{message}}</li>
+            {% endfor %}
+            </ul>
+            <button id="aceptar_flash" onclick="desaparecerboton()" class="botones">Aceptar</button>
+        </div>
+        {% endif %}
+        {% endwith %}
     </main>
     
 </body>

@@ -14,7 +14,7 @@
         <link rel="icon" type="image/x-icon" href="#">
         <!-- javascript -->
         <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-        <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>  
+        <script src="{{ url_for('static', filename='js/calcular_total.js') }}"></script>  
         <!--bootsrap-->
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.css') }}">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
@@ -63,32 +63,20 @@
                             <table class="table table-borderless">
                                 <thead>
                                     <th>Producto</th>
+                                    <th>Cantidad</th>
                                     <th>Costo</th>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>Nombre Producto</td>
-                                        <td>100.000Gs.</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Nombre Producto</td>
-                                        <td>100.000Gs.</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Nombre Producto</td>
-                                        <td>100.000Gs.</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Nombre Producto</td>
-                                        <td>100.000Gs.</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Nombre Producto</td>
-                                        <td>100.000Gs.</td>
-                                    </tr>
+                                    {% for producto in productos %}
+                                        <tr>
+                                            <td>{{producto.nombre}}</td>
+                                            <td>{{session['carrito'][loop.index0][1]}}</td>
+                                            <td class="subtotales">{{ producto.precio | int *  session['carrito'][loop.index0][1] | int }}</td>
+                                        </tr>
+                                    {% endfor %}
                                     <tr class="border-top">
                                         <th>Costo Total</th>
-                                        <td>500.000Gs.</td>
+                                        <td id="total"></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -127,12 +115,24 @@
                                     <input type="radio" class="form-control" id="medio" name="medio" >
                                 </div>
                             </div>
-                            <div class="d-flex justify-content-end ">
+                            <!-- <div class="d-flex justify-content-end ">
                                 <input type="submit" class="btn btn-primary" value="Terminar compra">
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                     
+                </form>
+                <form name="topaypal" action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post">
+                    <input type="hidden" name="cmd" value="_xclick">
+                    <input type="hidden" name="business" value="sb-42bec22313938@business.example.com">
+                    <input type="hidden" name="item_name" value="articulos"><!--NOMBRE DE ARTICULOS-->
+                    <input type="hidden" name="item_number" value="500"><!--NUMERO PARA SEGUIMIENTOS-->
+                    <input type="hidden" name="no_shipping" value="1">
+                    <input type="hidden" name="amount" value="" id="amount">
+                    <input type="hidden" name="return" value="http://127.0.0.1:5000/pago_exitoso/">
+                    <input type="hidden" name="cancel_return" value="http://127.0.0.1:5000/pago_cancelado/">
+                    <input type="hidden" name="notify_url" value="http://104.236.221.91/ipn/"><!--Para seguimiento-->
+                    <input type="submit" value="Terminar Compra" name="submit" class="btn btn-primary">
                 </form>
             </div>
         </main>
@@ -154,7 +154,6 @@
                                 <input class="form-control" id="contraseña" type="password" name="contraseña">
                             </div>
                         </div>
-                    
                         <!-- pie del diálogo -->
                         <div class="modal-footer">
                             <input type="submit" class="btn btn-primary mt-2">    

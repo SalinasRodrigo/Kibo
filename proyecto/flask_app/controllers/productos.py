@@ -149,26 +149,53 @@ def producto_seleccinado(id):
 def agregar_carrito():
     listaNueva = []
     if request.method == 'POST':
-        if not "carrito" in session:
-            session["carrito"] = []
-            session["carrito"].append((request.form.get("id"), request.form.get("cantidad")))
-            listaNueva = session["carrito"].copy()
+        id = request.form.get("id")
+        if request.form.get("cantidad") != "" and int(request.form.get("cantidad")) > 0:
+            cantidad = int(request.form.get("cantidad"))
+            stock = Producto.get_stock(id)
+            if stock >= cantidad:
+                if not "carrito" in session:
+                    session["carrito"] = []
+                    session["carrito"].append([id, cantidad])
+                    listaNueva = session["carrito"].copy()
+                else:
+                    #Consula si el articulo se habia agregado previamente
+                    existe = False
+                    cantidad_anterior = 0
+                    indice = None
+                    for idx, articulo in enumerate(session["carrito"]):
+                        if id == articulo[0]:
+                            existe = True
+                            cantidad_anterior = articulo[1]
+                            indice = idx
+                            break
+                    #si se habia agregado previamente consulta si hay stock suficiente
+                    if existe:
+                        if stock >= (cantidad + cantidad_anterior):
+                            #si hay stock se actualiza la cantidad
+                            session["carrito"][indice][1] = cantidad + cantidad_anterior
+                            listaNueva = session["carrito"].copy()
+                        else:
+                            flash(f"Stock Insuficiente solo quedan {stock - cantidad_anterior} en existencia")
+                            return redirect('/producto_seleccionado/'+id)
+                    else:
+                        session["carrito"].append([id, cantidad])
+                        listaNueva = session["carrito"].copy()
+                session["nuevo"] = listaNueva
+                return redirect('/carrito')
+            else:
+                flash(f"Stock Insuficiente solo quedan {stock} en existencia")
+                return redirect('/producto_seleccionado/'+id)
         else:
-            session["carrito"].append((request.form.get("id"), request.form.get("cantidad")))
-            listaNueva = session["carrito"].copy()
-        session["nuevo"] = listaNueva
-        return redirect('/')
+            flash("Completa la cantidad de artículos que deseas comprar")
+            return redirect('/producto_seleccionado/'+id)
     else:
         return redirect('/')
     
 
 @app.route('/carrito')
 def mostrar_carrito():
-    ids = ""
+    ids = []
     for producto in session["carrito"]:
-        ids += f"{producto[0]}, " 
-    ids = ids[:-2]
-    productos = Producto.get_carrito(ids)
-    for producto in productos:
-        print(producto.nombre)
-    return redirect("/")
+        ids.append(producto[0]) 
+    return render_template("finalizar_pedido.html", productos = Producto.get_carrito(ids))
