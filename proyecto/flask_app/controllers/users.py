@@ -14,3 +14,7 @@ def index():
 @app.route('/pedido')
 def pedido():
     return render_template('finalizar_pedido.html')
+
+@app.route('/buscador')
+def buscador():
+    return render_template('buscador.html')
