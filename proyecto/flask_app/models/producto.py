@@ -26,6 +26,16 @@ class Producto:
         return productos
 
     @classmethod
+    def get_carrito(cls, ids):
+        query = f"SELECT * FROM productos WHERE id in ({ids});"
+        mysql = connectToMySQL('proyecto_grupal_bd')
+        results = mysql.query_db(query)
+        productos = []
+        for row in results:
+            productos.append(cls(row))
+        return productos
+
+    @classmethod
     def get_one(cls, id):
         query = "SELECT * FROM productos WHERE id = %(id)s;"
         data = {
@@ -47,6 +57,8 @@ class Producto:
             return cls(result[0])
         else:
             return None
+        
+    
     
     @classmethod
     def save(cls,data):
@@ -98,5 +110,6 @@ class Producto:
         else:
             precio = result[0]['precio'] -  result[0]['precio'] * result[0]['descuento'] / 100
             return int(precio)
+
 
 

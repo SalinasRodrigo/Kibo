@@ -140,11 +140,35 @@ def proceso_actualizar_producto():
     else:
         return redirect('/modificar_producto')
 
+@app.route('/producto_seleccionado/<int:id>')
+def producto_seleccinado(id):
+    return render_template('producto_seleccionado.html', producto = Producto.get_one(id))
 
 
-
+@app.route('/carrito_add', methods=['POST'])
+def agregar_carrito():
+    listaNueva = []
+    if request.method == 'POST':
+        if not "carrito" in session:
+            session["carrito"] = []
+            session["carrito"].append((request.form.get("id"), request.form.get("cantidad")))
+            listaNueva = session["carrito"].copy()
+        else:
+            session["carrito"].append((request.form.get("id"), request.form.get("cantidad")))
+            listaNueva = session["carrito"].copy()
+        session["nuevo"] = listaNueva
+        return redirect('/')
+    else:
+        return redirect('/')
     
-@app.route('/producto_seleccionado')
-def producto_seleccinado():
-    return render_template('producto_seleccionado.html')
->>>>>>> 5cd706fc75f5e1af73b300a93800c5a3457fdf8f
+
+@app.route('/carrito')
+def mostrar_carrito():
+    ids = ""
+    for producto in session["carrito"]:
+        ids += f"{producto[0]}, " 
+    ids = ids[:-2]
+    productos = Producto.get_carrito(ids)
+    for producto in productos:
+        print(producto.nombre)
+    return redirect("/")
