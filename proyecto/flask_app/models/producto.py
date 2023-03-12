@@ -28,7 +28,6 @@ class Producto:
     @classmethod
     def get_carrito(cls, ids):
         productos = []
-        print(ids)
         for id in ids:
             query = f"SELECT * FROM productos WHERE id = {id};"
             mysql = connectToMySQL('proyecto_grupal_bd')

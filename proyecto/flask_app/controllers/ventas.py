@@ -15,15 +15,19 @@ def procesar_venta():
     ids = []
     for producto_id in session["carrito"]:
         ids.append(producto_id[0])
-    productos = Producto.get_carrito(ids)
-    for idx, producto in enumerate(productos):
-        datos_venta_cab = {
+    for idx in range(len(session["carrito"])):
+        datos_venta_det = {
             "cantidad" : session["carrito"][idx][1],
             "subtotal" : Producto.obtener_precio(session["carrito"][idx][0]) * session["carrito"][idx][1],
             "producto_id" : session["carrito"][idx][0],
             "venta_cab_id" : Venta_cab.obtener_id_venta()
         }
-        Venta_det.save(datos_venta_cab)
+        Venta_det.save(datos_venta_det)
+        datos_producto = {
+            "id" : session["carrito"][idx][0],
+            "cantidad" : session["carrito"][idx][1]
+        }
+        Producto.update_venta(datos_producto)
     datos_update = {
         "total" : Venta_det.obtener_total(Venta_cab.obtener_id_venta()),
         "id" : Venta_cab.obtener_id_venta()
