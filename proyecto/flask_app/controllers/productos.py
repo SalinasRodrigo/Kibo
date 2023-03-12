@@ -195,7 +195,11 @@ def agregar_carrito():
 
 @app.route('/carrito')
 def mostrar_carrito():
-    ids = []
-    for producto in session["carrito"]:
-        ids.append(producto[0]) 
-    return render_template("finalizar_pedido.html", productos = Producto.get_carrito(ids))
+    #poner validación cuando tengamos usuarios para no permitir que entren
+    if "carrito" in session:
+        ids = []
+        for producto in session["carrito"]:
+            ids.append(producto[0]) 
+        return render_template("finalizar_pedido.html", productos = Producto.get_carrito(ids))
+    else:
+        return render_template("finalizar_pedido.html")
