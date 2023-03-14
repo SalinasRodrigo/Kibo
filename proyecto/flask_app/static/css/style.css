@@ -67,7 +67,7 @@
 
 /* Mensaje Advertencia */
 
-.mensaje{
+.mensaje, .mensaje_flash{
     width: 300px;
     box-sizing: border-box;
     background-color: aqua;
@@ -76,11 +76,15 @@
     margin: 5% 50%;
     padding: 10px 20px;
     transform: translate(-50%);
-    display: none;
+    display: flex;
     flex-direction: column;
 }
 
-.mensaje h2{
+.mensaje{
+    display: none;
+}
+
+.mensaje h2, .mensaje_flash h2{
     margin: 0;
 }
 

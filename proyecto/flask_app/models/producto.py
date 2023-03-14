@@ -24,6 +24,16 @@ class Producto:
         for row in results:
             productos.append(cls(row))
         return productos
+    
+    @classmethod
+    def get_carrito(cls, ids):
+        productos = []
+        for id in ids:
+            query = f"SELECT * FROM productos WHERE id = {id};"
+            mysql = connectToMySQL('proyecto_grupal_bd')
+            result = mysql.query_db(query)
+            productos.append(cls(result[0]))
+        return productos
 
     @classmethod
     def get_one(cls, id):
@@ -39,14 +49,19 @@ class Producto:
             return None
 
     @classmethod
-    def get_stock(cls, data):
+    def get_stock(cls, id):
         query = "SELECT stock_disponible FROM productos WHERE id = %(id)s;"
-        mysql = connectToMySQL('proyecto_grupal_bd',data)
-        result = mysql.query_db(query)
+        data = {
+            "id" : id
+        }
+        mysql = connectToMySQL('proyecto_grupal_bd')
+        result = mysql.query_db(query,data)
         if len(result) > 0:
-            return cls(result[0])
+            return result[0]['stock_disponible']
         else:
             return None
+        
+    
     
     @classmethod
     def save(cls,data):
@@ -98,5 +113,6 @@ class Producto:
         else:
             precio = result[0]['precio'] -  result[0]['precio'] * result[0]['descuento'] / 100
             return int(precio)
+
 
 
