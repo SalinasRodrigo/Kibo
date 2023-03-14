@@ -6,6 +6,7 @@ from werkzeug.utils import secure_filename
 from ..models.categoria import Categoria
 from ..models.marca import Marca
 from ..models.producto import Producto
+from ..models.user import User
 
 @app.route('/producto')
 def producto():
@@ -150,44 +151,48 @@ def agregar_carrito():
     listaNueva = []
     if request.method == 'POST':
         id = request.form.get("id")
-        if request.form.get("cantidad") != "" and int(request.form.get("cantidad")) > 0:
-            cantidad = int(request.form.get("cantidad"))
-            stock = Producto.get_stock(id)
-            if stock >= cantidad:
-                if not "carrito" in session:
-                    session["carrito"] = []
-                    session["carrito"].append([id, cantidad])
-                    listaNueva = session["carrito"].copy()
-                else:
-                    #Consula si el articulo se habia agregado previamente
-                    existe = False
-                    cantidad_anterior = 0
-                    indice = None
-                    for idx, articulo in enumerate(session["carrito"]):
-                        if id == articulo[0]:
-                            existe = True
-                            cantidad_anterior = articulo[1]
-                            indice = idx
-                            break
-                    #si se habia agregado previamente consulta si hay stock suficiente
-                    if existe:
-                        if stock >= (cantidad + cantidad_anterior):
-                            #si hay stock se actualiza la cantidad
-                            session["carrito"][indice][1] = cantidad + cantidad_anterior
-                            listaNueva = session["carrito"].copy()
-                        else:
-                            flash(f"Stock Insuficiente solo quedan {stock - cantidad_anterior} en existencia")
-                            return redirect('/producto_seleccionado/'+id)
-                    else:
+        if "user_id" in session:
+            if request.form.get("cantidad") != "" and int(request.form.get("cantidad")) > 0:
+                cantidad = int(request.form.get("cantidad"))
+                stock = Producto.get_stock(id)
+                if stock >= cantidad:
+                    if not "carrito" in session:
+                        session["carrito"] = []
                         session["carrito"].append([id, cantidad])
                         listaNueva = session["carrito"].copy()
-                session["nuevo"] = listaNueva
-                return redirect('/carrito')
+                    else:
+                        #Consula si el articulo se habia agregado previamente
+                        existe = False
+                        cantidad_anterior = 0
+                        indice = None
+                        for idx, articulo in enumerate(session["carrito"]):
+                            if id == articulo[0]:
+                                existe = True
+                                cantidad_anterior = articulo[1]
+                                indice = idx
+                                break
+                        #si se habia agregado previamente consulta si hay stock suficiente
+                        if existe:
+                            if stock >= (cantidad + cantidad_anterior):
+                                #si hay stock se actualiza la cantidad
+                                session["carrito"][indice][1] = cantidad + cantidad_anterior
+                                listaNueva = session["carrito"].copy()
+                            else:
+                                flash(f"Stock Insuficiente solo quedan {stock - cantidad_anterior} en existencia")
+                                return redirect('/producto_seleccionado/'+id)
+                        else:
+                            session["carrito"].append([id, cantidad])
+                            listaNueva = session["carrito"].copy()
+                    session["nuevo"] = listaNueva
+                    return redirect('/carrito')
+                else:
+                    flash(f"Stock Insuficiente solo quedan {stock} en existencia")
+                    return redirect('/producto_seleccionado/'+id)
             else:
-                flash(f"Stock Insuficiente solo quedan {stock} en existencia")
+                flash("Completa la cantidad de artículos que deseas comprar")
                 return redirect('/producto_seleccionado/'+id)
         else:
-            flash("Completa la cantidad de artículos que deseas comprar")
+            flash("Inicia sesión poder agregar productos")
             return redirect('/producto_seleccionado/'+id)
     else:
         return redirect('/')
@@ -195,11 +200,15 @@ def agregar_carrito():
 
 @app.route('/carrito')
 def mostrar_carrito():
-    #poner validación cuando tengamos usuarios para no permitir que entren
-    if "carrito" in session:
-        ids = []
-        for producto in session["carrito"]:
-            ids.append(producto[0]) 
-        return render_template("finalizar_pedido.html", productos = Producto.get_carrito(ids))
+    if "user_id" in session:
+        if "carrito" in session:
+            ids = []
+            for producto in session["carrito"]:
+                ids.append(producto[0]) 
+            return render_template("finalizar_pedido.html", productos = Producto.get_carrito(ids), usuario = User.getUserId(session["user_id"]))
+        else:
+            flash("No tienes elementos agregados")
+            return redirect("/")
     else:
-        return render_template("finalizar_pedido.html")
+        flash("Inicia sesión para poder acceder al carrito")
+        return redirect("/")

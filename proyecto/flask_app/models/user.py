@@ -2,7 +2,7 @@ from flask import flash
 from ..config.mysqlconnection import connectToMySQL
 import re
 EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$') 
-CELL_REGEX = re.compile(r'/^((\+595|0)9([6-9][1-6])\d{6})$/')
+CELL_REGEX = re.compile(r'^((\+595|0)9([6-9][1-6])\d{6})+$')
 
 class User:
     def __init__(self,data):
@@ -18,8 +18,11 @@ class User:
         self.updated_at = data['updated_at']
 
     @classmethod
-    def getUserId(cls, data):
-        query = "SELECT id, nombre, apellido, correo, password, direccion, celular, nivel FROM proyecto_grupal_bd.usuarios where id = %(id)s;"
+    def getUserId(cls, id):
+        query = "SELECT * FROM proyecto_grupal_bd.usuarios where id = %(id)s;"
+        data = {
+            "id" : id
+        }
         results = connectToMySQL('proyecto_grupal_bd').query_db(query,data)
         if len(results) > 0:
             return cls(results[0])
@@ -28,7 +31,7 @@ class User:
 
     @classmethod
     def save(cls, data):# en principio nivel 1 para todos los clientes
-        query = 'INSERT INTO proyecto_grupal_bd.usuarios (nombre, apellido, correo, password, direccion, celular, nivel, created_at, updated_at) VALUES(%(nombre)s, %(apellido)s, %(correo)s, %(password)s, %(direccion)s, %(celular)s, 1, NOW(), NOW());'
+        query = 'INSERT INTO proyecto_grupal_bd.usuarios (nombre, apellido, correo, password, direccion, celular, nivel, created_at, updated_at) VALUES(%(nombre)s, %(apellido)s, %(correo)s, %(password)s, %(direccion)s, %(celular)s, 0, NOW(), NOW());'
         result = connectToMySQL('proyecto_grupal_bd').query_db(query,data)
         print(result)
         data_usuario = {'id' : result}
@@ -45,7 +48,7 @@ class User:
 
     @classmethod
     def getbyEmail(cls, data):
-        query = "SELECT id, nombre, apellido, correo, password, direccion, celular, nivel, created_at, updated_at FROM proyecto_grupal_bd.usuarios where correo = %(email)s;"
+        query = "SELECT id, nombre, apellido, correo, password, direccion, celular, nivel, created_at, updated_at FROM proyecto_grupal_bd.usuarios where correo = %(correo)s;"
         results = connectToMySQL('proyecto_grupal_bd').query_db(query,data)
         if len(results) > 0:
             return cls(results[0])
@@ -56,7 +59,7 @@ class User:
     def validar_usuario(registro):
 
         correo={
-            "correo":registro['email']
+            "correo":registro['correo']
         }
 
         celular={
@@ -84,7 +87,7 @@ class User:
             flash("Numero de Celular no válido")
             is_valid = False
 
-        elif User.getbyEmail(correo):
+        if User.getbyEmail(correo) != None:
             flash("Email ya existente")
             is_valid = False
 

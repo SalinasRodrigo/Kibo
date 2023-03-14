@@ -14,7 +14,7 @@
         <link rel="icon" type="image/x-icon" href="#">
         <!-- javascript -->
         <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-        <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>  
+        <script src="{{ url_for('static', filename='js/desaparecer_boton.js') }}"></script>  
         <!--bootsrap-->
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.css') }}">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
@@ -195,11 +195,11 @@
                         <button type="button" class="close" data-dismiss="modal">X</button>
                     </div>
                     <!-- cuerpo del diálogo -->
-                    <form action="" method="POST">
+                    <form action="{{url_for('login')}}" method="POST">
                         <div class="modal-body">
                             <div class="form-group">
                                 <label for="email">Email:</label>
-                                <input class="form-control" type="text" name="email">
+                                <input class="form-control" type="text" name="correo">
                                 <label for="contraseña">Contraseña:</label>
                                 <input class="form-control" id="contraseña" type="password" name="contraseña">
                             </div>
@@ -218,11 +218,11 @@
                 <div class="modal-content">
                     <!-- cabecera del diálogo -->
                     <div class="modal-header">
-                        <h4 class="modal-title">Register</h4>
+                        <h4 class="modal-title">Registro</h4>
                         <button type="button" class="close" data-dismiss="modal">X</button>
                     </div>
                     <!-- cuerpo del diálogo -->
-                    <form action="" method="POST">
+                    <form action="{{url_for('registro')}}" method="POST">
                         <div class="modal-body">
                             
                             <div class="form-group">    
@@ -231,7 +231,7 @@
                                 <label for="apellido">Apellido:</label>
                                 <input class="form-control" id="apellido" type="text" name="apellido">
                                 <label for="celular">Telefono:</label>
-                                <input class="form-control" id="celular" type="number" name="celular">
+                                <input class="form-control" id="celular" type="text" name="celular">
                                 <label for="direccion">Dirección:</label>
                                 <input class="form-control" id="direccion" type="text" name="direccion">
                                 <label for="correo">Email:</label>
@@ -250,5 +250,19 @@
                 </div>
             </div>
         </div>
+        <!--Errores Flash-->
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <div class="mensaje_flash">
+            <h2>¡Advertencia!</h2>
+            <ul>
+            {% for message in messages %}
+                <li>{{message}}</li>
+            {% endfor %}
+            </ul>
+            <button id="aceptar_flash" onclick="desaparecerboton()" class="botones">Aceptar</button>
+        </div>
+        {% endif %}
+        {% endwith %}
     </body>
 </html>

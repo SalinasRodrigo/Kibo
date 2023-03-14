@@ -34,8 +34,7 @@ def registro():
                 data = {
                     'nombre' : request.form['nombre'],
                     'apellido' : request.form['apellido'],
-                    'ci' : request.form['ci'],
-                    'correo' : request.form['email'],
+                    'correo' : request.form['correo'],
                     'password' : pw_hash,
                     'direccion' : request.form['direccion'],
                     'celular' : request.form['celular']
@@ -57,23 +56,26 @@ def login():
 
         # ver si el correo de usuario proporcionado existe en la base de datos
         data = {
-            "email" : request.form.get("email")
+            "correo" : request.form.get("correo")
         }
         user_in_db = User.getbyEmail(data)
 
         # usuario no está registrado en la base de datos
         if not user_in_db:
-            flash("Email/Password erroneos")
+            flash("Email no registrado")
             return redirect('/')
         
         if not bcrypt.check_password_hash(user_in_db.password, request.form['contraseña']):
             # si obtenemos False después de verificar la contraseña
-            flash("Email/Password erroneos")
+            flash("Password incorrecto")
             return redirect('/')
         
         # si las contraseñas coinciden, configuramos el user_id en sesión
         session['user_id'] = user_in_db.id
-        return redirect('/dashboard')
+        if user_in_db.nivel == 1:
+            return redirect('/dashboard')
+        else:
+            return redirect('/')
     
     else:
         return redirect('/')
@@ -85,7 +87,7 @@ def dashboard():
 
 @app.route('/dashboard/productos')
 def producto_add():
-    return render_template('/dashboard/productos.html')
+    return render_template('/dashboard/productos.html', marcas = Marca.get_all(), categorias = Categoria.get_all(), productos = Producto.get_all())
 
 @app.route('/dashboard/logout')
 def logout():
