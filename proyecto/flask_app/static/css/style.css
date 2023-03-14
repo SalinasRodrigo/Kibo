@@ -13,7 +13,7 @@
     width: 800px;
 }
 
-
+/* Carruser */
 .cards-wrapper {
     display: flex;
     justify-content: center;
@@ -53,6 +53,25 @@
     border-radius: 15%;
 }
 
+
+
+aside{
+    width: 19.5%;
+}
+
+.select_buscador{
+    width: 70%;
+}
+
+.sidebar{
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+}
+
+
+
+
 .lista_productos{
     width: 30%;
 }
@@ -88,10 +107,6 @@
     margin: 0;
 }
 
-.sidebar{
-    position: -webkit-sticky;
-    position: sticky;
-    top: 0;
-}
+
 
 
