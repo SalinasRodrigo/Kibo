@@ -6,6 +6,12 @@ from werkzeug.utils import secure_filename
 from ..models.categoria import Categoria
 from ..models.marca import Marca
 from ..models.producto import Producto
+from flask_bcrypt import Bcrypt
+from ..models.user import User
+
+bcrypt = Bcrypt(app)
+
+app.secret_key = 'secret_key'
 
 @app.route('/')
 def index():
@@ -18,3 +24,70 @@ def pedido():
 @app.route('/buscador')
 def buscador():
     return render_template('buscador.html')
+
+@app.route('/registrar', methods=['POST', 'GET'])
+def registro():
+    if request.method=='POST':
+        if request.form['contraseña'] == request.form['confi']:
+            if User.validar_usuario(request.form):
+                pw_hash = bcrypt.generate_password_hash(request.form['contraseña'])
+                data = {
+                    'nombre' : request.form['nombre'],
+                    'apellido' : request.form['apellido'],
+                    'ci' : request.form['ci'],
+                    'correo' : request.form['email'],
+                    'password' : pw_hash,
+                    'direccion' : request.form['direccion'],
+                    'celular' : request.form['celular']
+                }
+                usuario = User.save(data)
+                flash("Registro Exitoso!!!")
+                return redirect('/')
+            else:
+                return redirect('/')
+        else:
+            flash("Las Contraseñas no Coinciden!!!")
+            return redirect('/')
+    else:
+        return redirect('/')
+    
+@app.route('/login', methods=['POST', 'GET'])
+def login():
+    if request.method == 'POST':
+
+        # ver si el correo de usuario proporcionado existe en la base de datos
+        data = {
+            "email" : request.form.get("email")
+        }
+        user_in_db = User.getbyEmail(data)
+
+        # usuario no está registrado en la base de datos
+        if not user_in_db:
+            flash("Email/Password erroneos")
+            return redirect('/')
+        
+        if not bcrypt.check_password_hash(user_in_db.password, request.form['contraseña']):
+            # si obtenemos False después de verificar la contraseña
+            flash("Email/Password erroneos")
+            return redirect('/')
+        
+        # si las contraseñas coinciden, configuramos el user_id en sesión
+        session['user_id'] = user_in_db.id
+        return redirect('/dashboard')
+    
+    else:
+        return redirect('/')
+    
+
+@app.route('/dashboard')
+def dashboard():
+    return render_template('/dashboard/dashboard.html')
+
+@app.route('/dashboard/productos')
+def producto_add():
+    return render_template('/dashboard/productos.html')
+
+@app.route('/dashboard/logout')
+def logout():
+    session.clear()
+    return redirect('/')
