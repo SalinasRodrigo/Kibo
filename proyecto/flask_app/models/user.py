@@ -30,7 +30,7 @@ class User:
             return None
 
     @classmethod
-    def save(cls, data):# en principio nivel 1 para todos los clientes
+    def save(cls, data):# en principio nivel 0 para todos los clientes
         query = 'INSERT INTO proyecto_grupal_bd.usuarios (nombre, apellido, correo, password, direccion, celular, nivel, created_at, updated_at) VALUES(%(nombre)s, %(apellido)s, %(correo)s, %(password)s, %(direccion)s, %(celular)s, 0, NOW(), NOW());'
         result = connectToMySQL('proyecto_grupal_bd').query_db(query,data)
         print(result)
@@ -45,6 +45,24 @@ class User:
         for user in results:
             users.append(cls(user))
         return users
+
+    @classmethod
+    def getDataUser(cls, data):
+        query = "SELECT id, nombre, apellido, correo, password, direccion, celular, nivel, created_at, updated_at FROM proyecto_grupal_bd.usuarios WHERE id = %(id)s"
+        results = connectToMySQL('proyecto_grupal_bd').query_db(query,data)
+        return cls(results[0])
+
+    @classmethod
+    def update(cls,data):
+        query = "UPDATE proyecto_grupal_bd.usuarios SET nombre=%(nombre)s, apellido=%(apellido)s, correo=%(correo)s, direccion=%(direccion)s, celular=%(celular)s, updated_at=NOW() WHERE id=%(id)s;"
+        print(query)
+        return connectToMySQL('proyecto_grupal_bd').query_db(query,data)
+
+    @classmethod
+    def ChangePassword(cls,data):
+        query="UPDATE proyecto_grupal_bd.usuarios SET password=%(contraseña)s WHERE id=%(id)s;"
+        print(query)
+        return connectToMySQL('proyecto_grupal_bd').query_db(query,data)
 
     @classmethod
     def getbyEmail(cls, data):
