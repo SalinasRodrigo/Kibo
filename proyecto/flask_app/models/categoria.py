@@ -18,6 +18,19 @@ class Categoria:
         return marcas
 
     @classmethod
+    def get_one(cls, id):
+        query = "SELECT * FROM categorias WHERE id = %(id)s;"
+        data = {
+            "id" : id
+        }
+        mysql = connectToMySQL('proyecto_grupal_bd')
+        result = mysql.query_db(query, data)
+        if len(result) > 0:
+            return result[0]
+        else:
+            return None
+
+    @classmethod
     def save(cls,data):
         query = "INSERT INTO categorias (nombre, created_at, updated_at) VALUES (%(nombre)s, NOW(), NOW());"""
         return connectToMySQL('proyecto_grupal_bd').query_db(query,data)

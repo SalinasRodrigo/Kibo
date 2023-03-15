@@ -8,9 +8,9 @@ from ..models.marca import Marca
 from ..models.producto import Producto
 from ..models.user import User
 
-@app.route('/producto')
+@app.route('/dashboard/productos')
 def producto():
-    return render_template('producto.html', marcas = Marca.get_all(), categorias = Categoria.get_all(), productos = Producto.get_all())
+    return render_template('/dashboard/productos.html', marcas = Marca.get_all(), categorias = Categoria.get_all(), productos = Producto.get_all())
 
 @app.route('/process_producto', methods=['POST'])
 def registrar_producto():
@@ -29,7 +29,7 @@ def registrar_producto():
             #validando la extension
             if not extension in EXTENSIONES_PERMITIDAS:
                 flash("Imagen no válida, las extensiones permitidas son .png, .jpg, .jpeg")
-                return ("/producto")
+                return ("/dashboard/productos")
 
             nuevoNombreFile     = str(Producto.obtener_id_siguiente()) + extension
             #direccion.parents[0] retrocede una carpeta
@@ -48,9 +48,9 @@ def registrar_producto():
             "categoria_id": request.form["categoria"]
         }
         Producto.save(data)
-        return redirect('/producto')
+        return redirect('/dashboard/productos')
     else:
-        return redirect('/producto')
+        return redirect('/dashboard/productos')
 
 @app.route('/process_categoria', methods=['POST'])
 def registrar_categoria():
@@ -59,9 +59,9 @@ def registrar_categoria():
             "nombre":request.form['nombre'],
         }
         Categoria.save(data)
-        return redirect('/producto')
+        return redirect('/dashboard/productos')
     else:
-        return redirect('/producto')
+        return redirect('/dashboard/productos')
     
 @app.route('/process_marca', methods=['POST'])
 def registrar_marca():
@@ -70,18 +70,18 @@ def registrar_marca():
             "nombre":request.form['nombre'],
         }
         Marca.save(data)
-        return redirect('/producto')
+        return redirect('/dashboard/productos')
     else:
-        return redirect('/producto')
+        return redirect('/dashboard/productos')
     
-@app.route('/modificar_producto')
+@app.route('/dashboard/modificar_producto')
 def actualizar_producto():
-    return render_template('actualizar_producto.html', marcas = Marca.get_all(), categorias = Categoria.get_all(), productos = Producto.get_all())
+    return render_template('/dashboard/actualizar_producto.html', marcas = Marca.get_all(), categorias = Categoria.get_all(), productos = Producto.get_all())
 
 @app.route('/reponer_stock/<int:id>')
 def reponer_stock(id):
     Producto.update_stock(id)
-    return redirect("/modificar_producto")
+    return redirect("/dashboard/modificar_producto")
 
 
 @app.route('/obtener_producto/<int:id>')
@@ -106,7 +106,7 @@ def proceso_actualizar_producto():
             #validando la extension
             if not extension in EXTENSIONES_PERMITIDAS:
                 flash("Imagen no válida, las extensiones permitidas son .png, .jpg, .jpeg")
-                return ("/producto")
+                return ("/dashboard/productos")
 
             nuevoNombreFile     = str(request.form["id"]) + extension
             #direccion.parents[0] retrocede una carpeta
@@ -137,15 +137,15 @@ def proceso_actualizar_producto():
             "categoria_id": request.form["categoria"]
         }
         Producto.update_producto(data)
-        return redirect('/modificar_producto')
+        return redirect('/dashboard/modificar_producto')
     else:
-        return redirect('/modificar_producto')
+        return redirect('/dashboard/modificar_producto')
 
 @app.route('/producto_seleccionado/<int:id>')
 def producto_seleccinado(id):
     producto = Producto.get_one(id)
     if producto != None:
-        return render_template('producto_seleccionado.html', producto = producto)
+        return render_template('producto_seleccionado.html', producto = producto, funciones = Producto)
     else:
         return redirect("/")
 

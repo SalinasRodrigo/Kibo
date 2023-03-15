@@ -114,5 +114,28 @@ class Producto:
             precio = result[0]['precio'] -  result[0]['precio'] * result[0]['descuento'] / 100
             return int(precio)
 
+    @staticmethod
+    def obtener_marca(id):
+        query = "SELECT nombre FROM marcas WHERE id = %(id)s;"
+        data = {
+            "id" : id
+        }
+        mysql = connectToMySQL('proyecto_grupal_bd')
+        result = mysql.query_db(query,data)
+        if len(result) > 0:
+            return result[0]['nombre']
+        else:
+            return "Marca indeterminada"
 
-
+    @staticmethod
+    def obtener_categoria(id):
+        query = "SELECT nombre FROM categorias WHERE id = %(id)s;"
+        data = {
+            "id" : id
+        }
+        mysql = connectToMySQL('proyecto_grupal_bd')
+        result = mysql.query_db(query,data)
+        if len(result) > 0:
+            return result[0]['nombre']
+        else:
+            return "Categoria indeterminada"

@@ -15,7 +15,8 @@ app.secret_key = 'secret_key'
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    productos = Producto.get_all()
+    return render_template('index.html', productos = productos)
 
 @app.route('/pedido')
 def pedido():
@@ -75,7 +76,7 @@ def login():
         if user_in_db.nivel == 1:
             return redirect('/dashboard')
         else:
-            return redirect('/')
+            return redirect('/')#, user = session["user_id"])
 
     else:
         return redirect('/')
