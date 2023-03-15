@@ -33,7 +33,6 @@ document.addEventListener("DOMContentLoaded", () => {
         var boxMensaje = document.querySelector(".mensaje")
         boxMensaje.style.display = "flex"
         errores = []
-        count = 0
       }else{
         fetch("/process_actualizar_producto", { method :'POST', body : form})
         .then(response => {
