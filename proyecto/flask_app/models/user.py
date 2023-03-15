@@ -18,11 +18,8 @@ class User:
         self.updated_at = data['updated_at']
 
     @classmethod
-    def getUserId(cls, id):
+    def getUserId(cls, data):
         query = "SELECT * FROM proyecto_grupal_bd.usuarios where id = %(id)s;"
-        data = {
-            "id" : id
-        }
         results = connectToMySQL('proyecto_grupal_bd').query_db(query,data)
         if len(results) > 0:
             return cls(results[0])
@@ -34,7 +31,9 @@ class User:
         query = 'INSERT INTO proyecto_grupal_bd.usuarios (nombre, apellido, correo, password, direccion, celular, nivel, created_at, updated_at) VALUES(%(nombre)s, %(apellido)s, %(correo)s, %(password)s, %(direccion)s, %(celular)s, 0, NOW(), NOW());'
         result = connectToMySQL('proyecto_grupal_bd').query_db(query,data)
         print(result)
-        data_usuario = {'id' : result}
+        data_usuario = {
+            'id': result
+        }
         return cls.getUserId(data_usuario)
 
     @classmethod

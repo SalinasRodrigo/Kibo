@@ -26,6 +26,16 @@ class Producto:
         return productos
     
     @classmethod
+    def get_nuevos(cls):
+        query = "SELECT * FROM productos ORDER BY created_at DESC WHERE stock_disponible > 0 LIMIT 12;"
+        mysql = connectToMySQL('proyecto_grupal_bd')
+        results = mysql.query_db(query)
+        productos = []
+        for row in results:
+            productos.append(cls(row))
+        return productos
+    
+    @classmethod
     def get_carrito(cls, ids):
         productos = []
         for id in ids:
