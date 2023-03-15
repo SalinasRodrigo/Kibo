@@ -58,7 +58,7 @@
     <main class="d-flex justify-content-around mt-5">
         <div class="card" style="width: 18rem;">
             <p class="descuento">-0%</p>
-            <img class="card-img-top" src="{{ url_for('static', filename='assets/1.jpg') }}" alt="Card image cap">
+            <img class="card-img-top" src="{{producto.imagen}}" alt="Card image cap">
             <div class="card-body">
                 <h5 class="card-title">{{producto.nombre}}</h5>
                 <p>Precio: {{producto.precio}} GS.</p>

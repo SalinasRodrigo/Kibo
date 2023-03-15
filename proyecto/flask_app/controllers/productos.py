@@ -143,7 +143,11 @@ def proceso_actualizar_producto():
 
 @app.route('/producto_seleccionado/<int:id>')
 def producto_seleccinado(id):
-    return render_template('producto_seleccionado.html', producto = Producto.get_one(id))
+    producto = Producto.get_one(id)
+    if producto != None:
+        return render_template('producto_seleccionado.html', producto = producto)
+    else:
+        return redirect("/")
 
 
 @app.route('/carrito_add', methods=['POST'])
