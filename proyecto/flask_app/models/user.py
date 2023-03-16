@@ -18,16 +18,14 @@ class User:
         self.updated_at = data['updated_at']
 
     @classmethod
-    def getUserId(cls, id):
+    def getUserId(cls, data):
         query = "SELECT * FROM proyecto_grupal_bd.usuarios where id = %(id)s;"
-        data = {
-            "id" : id
-        }
         results = connectToMySQL('proyecto_grupal_bd').query_db(query,data)
         if len(results) > 0:
             return cls(results[0])
         else:
             return None
+
 
     @classmethod
     def save(cls, data):# en principio nivel 0 para todos los clientes
@@ -107,6 +105,30 @@ class User:
 
         if User.getbyEmail(correo) != None:
             flash("Email ya existente")
+            is_valid = False
+
+        return is_valid
+    
+
+    @staticmethod
+    def validar_perfil(perfil):
+
+        correo={
+            "correo" : perfil['correo']
+        }
+
+        is_valid = True
+
+        if len(perfil['nombre']) < 3:
+            flash("El Nombre debe contener al menos 3 caracteres")
+            is_valid = False
+    
+        if len(perfil['apellido']) < 3:
+            flash("El Apellido debe contener al menos 3 caracteres")
+            is_valid = False
+
+        if not EMAIL_REGEX.match(perfil['correo']):
+            flash("Email no valido")
             is_valid = False
 
         return is_valid
