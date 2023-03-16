@@ -17,7 +17,7 @@ class Producto:
 
     @classmethod
     def get_all(cls):
-        query = "SELECT * FROM productos WHERE stock_disponible > 0;"
+        query = "SELECT * FROM productos;"
         mysql = connectToMySQL('proyecto_grupal_bd')
         results = mysql.query_db(query)
         productos = []

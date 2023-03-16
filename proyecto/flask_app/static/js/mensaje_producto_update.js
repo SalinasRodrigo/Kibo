@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-  var myForm = document.getElementById('formulario_producto');
+  var myForm = document.getElementById('actualizar_producto');
   myForm.onsubmit = function(e){
       e.preventDefault();
       var errores = new Array();
