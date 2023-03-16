@@ -147,10 +147,15 @@ def update_user(id):
             'direccion' : request.form['direccion'],
             'correo' : request.form['correo']
         }
-    
-    User.update(datos)
-    flash("Datos Actualizados!!!")
+        if User.validar_perfil(request.form):
+            User.update(datos)
+            flash("Datos Actualizados!!!")
+        else:
+            return redirect('/dashboard/perfil')
+
     return redirect('/dashboard')
+    
+    
 
 
 @app.route('/dashboard/change_password', methods=['POST','GET'])

@@ -26,6 +26,7 @@ class User:
         else:
             return None
 
+
     @classmethod
     def save(cls, data):# en principio nivel 0 para todos los clientes
         query = 'INSERT INTO proyecto_grupal_bd.usuarios (nombre, apellido, correo, password, direccion, celular, nivel, created_at, updated_at) VALUES(%(nombre)s, %(apellido)s, %(correo)s, %(password)s, %(direccion)s, %(celular)s, 0, NOW(), NOW());'
@@ -106,6 +107,30 @@ class User:
 
         if User.getbyEmail(correo) != None:
             flash("Email ya existente")
+            is_valid = False
+
+        return is_valid
+    
+
+    @staticmethod
+    def validar_perfil(perfil):
+
+        correo={
+            "correo" : perfil['correo']
+        }
+
+        is_valid = True
+
+        if len(perfil['nombre']) < 3:
+            flash("El Nombre debe contener al menos 3 caracteres")
+            is_valid = False
+    
+        if len(perfil['apellido']) < 3:
+            flash("El Apellido debe contener al menos 3 caracteres")
+            is_valid = False
+
+        if not EMAIL_REGEX.match(perfil['correo']):
+            flash("Email no valido")
             is_valid = False
 
         return is_valid
