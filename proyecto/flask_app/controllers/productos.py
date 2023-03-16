@@ -206,9 +206,7 @@ def eliminar_carrito(id):
     if "user_id" in session:
         listaNueva = session["carrito"].copy()
         for idx, articulo in enumerate(session["carrito"]):
-            print(id, articulo[0])
             if id == int(articulo[0]):
-                print(session["carrito"])
                 session["carrito"].pop(idx)
                 listaNueva = session["carrito"].copy()
                 break
@@ -225,7 +223,10 @@ def mostrar_carrito():
             ids = []
             for producto in session["carrito"]:
                 ids.append(producto[0]) 
-            return render_template("finalizar_pedido.html", productos = Producto.get_carrito(ids), usuario = User.getUserId(session["user_id"]))
+            data_usuario = {
+                "id" : session["user_id"]
+            }
+            return render_template("finalizar_pedido.html", productos = Producto.get_carrito(ids), usuario = User.getUserId(data_usuario))
         else:
             flash("No tienes elementos agregados")
             return redirect("/")
