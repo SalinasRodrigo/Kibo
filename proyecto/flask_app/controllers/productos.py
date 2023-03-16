@@ -201,11 +201,27 @@ def agregar_carrito():
     else:
         return redirect('/')
     
+@app.route('/carrito_delete/<int:id>')
+def eliminar_carrito(id):
+    if "user_id" in session:
+        listaNueva = session["carrito"].copy()
+        for idx, articulo in enumerate(session["carrito"]):
+            print(id, articulo[0])
+            if id == int(articulo[0]):
+                print(session["carrito"])
+                session["carrito"].pop(idx)
+                listaNueva = session["carrito"].copy()
+                break
+        session["carrito"] = listaNueva
+        return redirect('/carrito')
+    else:
+        return redirect('/carrito')
+    
 
 @app.route('/carrito')
 def mostrar_carrito():
     if "user_id" in session:
-        if "carrito" in session:
+        if "carrito" in session and len(session["carrito"]) > 0:
             ids = []
             for producto in session["carrito"]:
                 ids.append(producto[0]) 

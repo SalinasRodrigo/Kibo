@@ -139,3 +139,5 @@ class Producto:
             return result[0]['nombre']
         else:
             return "Categoria indeterminada"
+
+
