@@ -15,8 +15,34 @@ app.secret_key = 'secret_key'
 
 @app.route('/')
 def index():
-    productos = Producto.get_all()
-    return render_template('index.html', productos = productos)
+    productos = Producto.get_nuevos()
+    L_d_L=[]
+    lista=[]
+    j=1
+
+    for producto in productos:
+        lista.append(producto)
+        
+
+        if (j%4==0):
+            L_d_L.append(lista)
+            lista=[]
+
+        j+=1
+        
+        
+
+    # while (i<len(productos)):
+    #     j=0
+    #     lista=[]
+    #     while(j<4):
+    #         lista.append(productos[i])
+    #         j+=1
+    #         i+=1
+    #     L_d_L.append(lista)
+
+
+    return render_template('index.html', lista = L_d_L)
 
 @app.route('/pedido')
 def pedido():
@@ -24,6 +50,7 @@ def pedido():
 
 @app.route('/buscador')
 def buscador():
+
     return render_template('buscador.html')
 
 @app.route('/registrar', methods=['POST', 'GET'])

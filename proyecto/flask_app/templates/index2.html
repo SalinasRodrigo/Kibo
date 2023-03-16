@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="es">
     <head>
@@ -11,12 +13,12 @@
         <!--título-->
         <title>Kibo</title>
         <!--favicon-->
-        <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='images/logo.png') }}">
+        <link rel="icon" type="image/x-icon" href="/static/images/logo.png">
         <!-- javascript -->
         <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-        <script src="{{ url_for('static', filename='js/desaparecer_boton.js') }}"></script>  
+        <script src="/static/js/desaparecer_boton.js"></script>  
         <!--bootsrap-->
-        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.css') }}">
+        <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
         <!--css-->
@@ -25,34 +27,7 @@
     </head>
     <body>
         <header>
-            {% if session["user_id"] %}
-            <nav class="navbar navbar-expand-md  navbar-dark bg-dark ">
-                <div class="container-fluid">
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-toggler" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbar-toggler">
-                            <a class="navbar-brand" href="/">
-                                <img src="../static/images/logo_principal.svg" alt="logo de la pagina web">
-                            </a>
-                            <form id="buscador" class="d-flex" role="search" action="#" method="post">
-                                <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Buscar">
-                                <button class="btn btn-primary" type="submit">Buscar</button>
-                            </form>
-                            <div class="navbar-nav d-flex">
-                                <ul class="navbar-nav d-flex justify-content-center align-items-center">
-                                    <li class="nav-item">
-                                        <a class="nav-link active" href="#">Carrito</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link active" href="{{ url_for('logout') }}">Cerrar sesión</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </nav>
-            {%else%}
+            
                 <nav class="navbar navbar-expand-md  navbar-dark bg-dark ">
                     <div class="container-fluid">
                         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-toggler" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
@@ -82,7 +57,7 @@
                     </div>
                 </div>
             </nav>
-            {% endif %}
+            
         </header>
         <main class="mt-5">
             <div class="container">
@@ -94,40 +69,115 @@
                         <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
                     </ol>
                     <div class="carousel-inner">
-                        {%for productos in lista%}
-                            {%if loop.index == 1%}
-                                <div class="carousel-item active">
-                                    <div class="cards-wrapper">
-                                        {%for producto in productos%}
-                                            <div class="card" style="width: 18rem;">
-                                                <p class="descuento">-{{producto.descuento}}%</p>
-                                                <img class="card-img-top" src="{{producto.imagen}}" alt="Card image cap">
-                                                <div class="card-body">
-                                                    <h5 class="card-title">{{producto.nombre}}</h5>
-                                                    <p>Precio: {{producto.precio}} Gs.</p>
-                                                </div>
-                                            </div>
-                                        {%endfor%}
+                        <div class="carousel-item active">
+                            <div class="cards-wrapper">
+                                <div class="card" style="width: 18rem;">
+                                    <p class="descuento">-0%</p>
+                                    <img class="card-img-top" src="/static/assets/1.jpg" alt="Card image cap">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Nombre del producto</h5>
+                                        <p>Precio: 100.000 Gs.</p>
                                     </div>
                                 </div>
-                            {%else%}
-                                <div class="carousel-item">
-                                    <div class="cards-wrapper">
-                                    {%for producto in productos%}
-                                        <div class="card" style="width: 18rem;">
-                                            <p class="descuento">-{{producto.descuento}}%</p>
-                                            <img class="card-img-top" src="{{producto.imagen}}" alt="Card image cap">
-                                            <div class="card-body">
-                                                <h5 class="card-title">{{producto.nombre}}</h5>
-                                                <p>Precio: {{producto.precio}} Gs.</p>
-                                            </div>
-                                        </div>
-                                    {%endfor%}
+                                <div class="card" style="width: 18rem;">
+                                    <p class="descuento">-0%</p>
+                                    <img class="card-img-top" src="/static/assets/1.jpg" alt="Card image cap">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Nombre del producto</h5>
+                                        <p>Precio: 100.000 Gs.</p>
                                     </div>
                                 </div>
-                            {%endif%} 
-                        {%endfor%}
-                    </div>     
+                                <div class="card" style="width: 18rem;">
+                                    <p class="descuento">-0%</p>
+                                    <img class="card-img-top" src="/static/assets/1.jpg" alt="Card image cap">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Nombre del producto</h5>
+                                        <p>Precio: 100.000 Gs.</p>
+                                    </div>
+                                </div>
+                                <div class="card" style="width: 18rem;">
+                                    <p class="descuento">-0%</p>
+                                    <img class="card-img-top" src="/static/assets/1.jpg" alt="Card image cap">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Nombre del producto</h5>
+                                        <p>Precio: 100.000 Gs.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <div class="cards-wrapper">
+                                <div class="card" style="width: 18rem;">
+                                    <p class="descuento">-0%</p>
+                                    <img class="card-img-top" src="/static/assets/1.jpg" alt="Card image cap">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Nombre del producto</h5>
+                                        <p>Precio: 100.000 Gs.</p>
+                                    </div>
+                                </div>
+                                <div class="card" style="width: 18rem;">
+                                    <p class="descuento">-0%</p>
+                                    <img class="card-img-top" src="/static/assets/1.jpg" alt="Card image cap">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Nombre del producto</h5>
+                                        <p>Precio: 100.000 Gs.</p>
+                                    </div>
+                                </div>
+                                <div class="card" style="width: 18rem;">
+                                    <p class="descuento">-0%</p>
+                                    <img class="card-img-top" src="/static/assets/1.jpg" alt="Card image cap">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Nombre del producto</h5>
+                                        <p>Precio: 100.000 Gs.</p>
+                                    </div>
+                                </div>
+                                <div class="card" style="width: 18rem;">
+                                    <p class="descuento">-0%</p>
+                                    <img class="card-img-top" src="/static/assets/1.jpg" alt="Card image cap">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Nombre del producto</h5>
+                                        <p>Precio: 100.000 Gs.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <div class="cards-wrapper">
+                                <div class="card" style="width: 18rem;">
+                                    <p class="descuento">-0%</p>
+                                    <img class="card-img-top" src="/static/assets/1.jpg" alt="Card image cap">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Nombre del producto</h5>
+                                        <p>Precio: 100.000 Gs.</p>
+                                    </div>
+                                </div>
+                                <div class="card" style="width: 18rem;">
+                                    <p class="descuento">-0%</p>
+                                    <img class="card-img-top" src="/static/assets/1.jpg" alt="Card image cap">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Nombre del producto</h5>
+                                        <p>Precio: 100.000 Gs.</p>
+                                    </div>
+                                </div>
+                                <div class="card" style="width: 18rem;">
+                                    <p class="descuento">-0%</p>
+                                    <img class="card-img-top" src="/static/assets/1.jpg" alt="Card image cap">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Nombre del producto</h5>
+                                        <p>Precio: 100.000 Gs.</p>
+                                    </div>
+                                </div>
+                                <div class="card" style="width: 18rem;">
+                                    <p class="descuento">-0%</p>
+                                    <img class="card-img-top" src="/static/assets/1.jpg" alt="Card image cap">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Nombre del producto</h5>
+                                        <p>Precio: 100.000 Gs.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div>
                         <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -150,7 +200,7 @@
                         <button type="button" class="close" data-dismiss="modal">X</button>
                     </div>
                     <!-- cuerpo del diálogo -->
-                    <form action="{{url_for('login')}}" method="POST">
+                    <form action="/login" method="POST">
                         <div class="modal-body">
                             <div class="form-group">
                                 <label for="email">Email:</label>
@@ -177,7 +227,7 @@
                         <button type="button" class="close" data-dismiss="modal">X</button>
                     </div>
                     <!-- cuerpo del diálogo -->
-                    <form action="{{url_for('registro')}}" method="POST">
+                    <form action="/registrar" method="POST">
                         <div class="modal-body">
                             
                             <div class="form-group">    
@@ -206,18 +256,8 @@
             </div>
         </div>
         <!--Errores Flash-->
-        {% with messages = get_flashed_messages() %}
-        {% if messages %}
-        <div class="mensaje_flash">
-            <h2>¡Advertencia!</h2>
-            <ul>
-            {% for message in messages %}
-                <li>{{message}}</li>
-            {% endfor %}
-            </ul>
-            <button id="aceptar_flash" onclick="desaparecerboton()" class="botones">Aceptar</button>
-        </div>
-        {% endif %}
-        {% endwith %}
+        
+        
+        
     </body>
 </html>
