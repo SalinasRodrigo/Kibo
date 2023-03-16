@@ -15,19 +15,21 @@ app.secret_key = 'secret_key'
 
 @app.route('/')
 def index():
-    # productos = Producto.get_nuevos()
-    # L_d_L=[]
-    # lista=[]
-    # j=1
+    productos = Producto.get_nuevos()
+    L_d_L=[]
+    lista=[]
+    j=1
 
-    # for producto in productos:
-    #     lista.append(producto)
+    for producto in productos:
+        lista.append(producto)
         
-    #     if (j%4==0):
-    #         L_d_L.append(lista)
-    #         lista=[]
 
-    #     j+=1
+        if (j%4==0):
+            L_d_L.append(lista)
+            lista=[]
+
+        j+=1
+        
         
 
     # while (i<len(productos)):
@@ -40,7 +42,7 @@ def index():
     #     L_d_L.append(lista)
 
 
-    return render_template('index.html')
+    return render_template('index.html', lista = L_d_L)
 
 @app.route('/pedido')
 def pedido():
