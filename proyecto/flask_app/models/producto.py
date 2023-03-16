@@ -83,9 +83,14 @@ class Producto:
     
     @classmethod
     def update_producto(cls, data):
-        query = """UPDATE productos SET nombre = %(nombre)s, descripcion = %(descripcion)s, precio = %(precio)s, 
-        stock_ideal = %(stock_ideal)s, stock_disponible = %(stock_disponible)s, updated_at = NOW(),
-        marca_id = %(marca_id)s, descuento= %(descuento)s, categoria_id = %(categoria_id)s WHERE id = %(id)s"""
+        if 'imagen' in data:
+            query = """UPDATE productos SET nombre = %(nombre)s, descripcion = %(descripcion)s, precio = %(precio)s, 
+            stock_ideal = %(stock_ideal)s, stock_disponible = %(stock_disponible)s, updated_at = NOW(),
+            marca_id = %(marca_id)s, descuento= %(descuento)s, imagen = %(imagen)s, categoria_id = %(categoria_id)s WHERE id = %(id)s"""
+        else:
+            query = """UPDATE productos SET nombre = %(nombre)s, descripcion = %(descripcion)s, precio = %(precio)s, 
+            stock_ideal = %(stock_ideal)s, stock_disponible = %(stock_disponible)s, updated_at = NOW(),
+            marca_id = %(marca_id)s, descuento= %(descuento)s, categoria_id = %(categoria_id)s WHERE id = %(id)s"""
         return connectToMySQL('proyecto_grupal_bd').query_db(query, data)
 
     @classmethod

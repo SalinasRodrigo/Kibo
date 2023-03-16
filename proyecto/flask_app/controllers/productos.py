@@ -93,6 +93,7 @@ def obtener_producto(id):
 def proceso_actualizar_producto():
     if request.method == 'POST':
         path_database = None
+        data = {}
         if request.files["imagen"].filename != "":
             EXTENSIONES_PERMITIDAS = set([".png", ".jpg", ".jpeg"])
             file     = request.files['imagen']
@@ -125,17 +126,18 @@ def proceso_actualizar_producto():
                 "marca_id": request.form["marca"],
                 "categoria_id": request.form["categoria"]
             }
-        data = {
-            "id": request.form["id"],
-            "nombre": request.form["nombre"],
-            "descripcion": request.form["descripcion"],
-            "precio": request.form["precio"],
-            "stock_ideal": request.form["stock_ideal"],
-            "stock_disponible": request.form["stock_disponible"],
-            "descuento": request.form["descuento"],
-            "marca_id": request.form["marca"],
-            "categoria_id": request.form["categoria"]
-        }
+        else:
+            data = {
+                "id": request.form["id"],
+                "nombre": request.form["nombre"],
+                "descripcion": request.form["descripcion"],
+                "precio": request.form["precio"],
+                "stock_ideal": request.form["stock_ideal"],
+                "stock_disponible": request.form["stock_disponible"],
+                "descuento": request.form["descuento"],
+                "marca_id": request.form["marca"],
+                "categoria_id": request.form["categoria"]
+            }
         Producto.update_producto(data)
         return redirect('/dashboard/modificar_producto')
     else:
