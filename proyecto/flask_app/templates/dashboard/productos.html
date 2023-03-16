@@ -3,15 +3,15 @@
 {% block h1 %}Productos{% endblock %}
 
 {% block content %}
-<div class="d-flex justify-content-around">
-    <div>
+<div class="row">
+    <div class="col-lg-6">
         <form class="form-group" action="{{url_for('registrar_categoria')}}" method="post">
             <label for="nombre_categoria">Categoría:</label>
             <input type="text" name="nombre" id="nombre_categoria">
             <button class="btn btn-primary" type="submit">Agregar</button>
         </form>
     </div>
-    <div>
+    <div class="col-lg-6">
         <form class="form-group" action="{{url_for('registrar_marca')}}" method="post">
             <label for="nombre_marca">Marca:</label>
             <input type="text" name="nombre" id="nombre_marca">
