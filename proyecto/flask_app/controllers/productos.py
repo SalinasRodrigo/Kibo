@@ -201,15 +201,32 @@ def agregar_carrito():
     else:
         return redirect('/')
     
+@app.route('/carrito_delete/<int:id>')
+def eliminar_carrito(id):
+    if "user_id" in session:
+        listaNueva = session["carrito"].copy()
+        for idx, articulo in enumerate(session["carrito"]):
+            if id == int(articulo[0]):
+                session["carrito"].pop(idx)
+                listaNueva = session["carrito"].copy()
+                break
+        session["carrito"] = listaNueva
+        return redirect('/carrito')
+    else:
+        return redirect('/carrito')
+    
 
 @app.route('/carrito')
 def mostrar_carrito():
     if "user_id" in session:
-        if "carrito" in session:
+        if "carrito" in session and len(session["carrito"]) > 0:
             ids = []
             for producto in session["carrito"]:
                 ids.append(producto[0]) 
-            return render_template("finalizar_pedido.html", productos = Producto.get_carrito(ids), usuario = User.getUserId(session["user_id"]))
+            data_usuario = {
+                "id" : session["user_id"]
+            }
+            return render_template("finalizar_pedido.html", productos = Producto.get_carrito(ids), usuario = User.getUserId(data_usuario))
         else:
             flash("No tienes elementos agregados")
             return redirect("/")
