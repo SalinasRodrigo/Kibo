@@ -73,11 +73,11 @@ aside{
 
 
 .lista_productos{
-    width: 30%;
+    width: 55%;
 }
 
 .info_compra{
-    width: 30%;
+    width: 35%;
 }
 
 .border-top{
@@ -94,7 +94,7 @@ aside{
     color: rgb(0, 166, 255);
     border-radius: 4%;
     position: absolute;
-    margin: 5% 50%;
+    margin: 0% 50%;
     padding: 10px 20px;
     transform: translate(-50%);
     display: flex;
@@ -118,5 +118,24 @@ aside{
     align-items: center;
 }
 
+/*Producto seleccionado*/
+#prod-especifico {
+    padding-left: 15px;
+}
 
+#prod-especifico img{
+    width:150px;
+    margin-bottom: 20px;
+}
 
+#prod-especifico button {
+    margin-top: 20px;
+}
+
+#prod-especifico h3 {
+    margin: 15px 0 20px 0;
+}
+
+#prod-especifico form input {
+    width: 30%;
+}

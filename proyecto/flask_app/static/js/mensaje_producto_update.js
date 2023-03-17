@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
   var myForm = document.getElementById('actualizar_producto');
-  myForm.onsubmit = function(e){
+  if (myForm != null){
+    myForm.onsubmit = function(e){
       e.preventDefault();
       var errores = new Array();
       var form = new FormData(myForm);
@@ -51,4 +52,6 @@ document.addEventListener("DOMContentLoaded", () => {
       });
 
   }
+  }
+  
 });
