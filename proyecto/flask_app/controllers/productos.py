@@ -198,7 +198,7 @@ def agregar_carrito():
                 flash("Completa la cantidad de artículos que deseas comprar")
                 return redirect('/producto_seleccionado/'+id)
         else:
-            flash("Inicia sesión poder agregar productos")
+            flash("Inicia sesión para poder agregar productos")
             return redirect('/producto_seleccionado/'+id)
     else:
         return redirect('/')
