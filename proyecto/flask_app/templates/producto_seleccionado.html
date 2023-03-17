@@ -20,8 +20,7 @@
         <link rel="stylesheet" href="../static/css/style.css">
         <!-- javascript -->
         <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-        <script src="{{ url_for('static', filename='js/desaparecer_boton.js') }}"></script>  
-        <!--font--> 
+        <script src="{{ url_for('static', filename='js/desaparecer_boton.js') }}"></script>
     </head>
 <body>
     <header>
@@ -93,33 +92,33 @@
                 <p>Precio: {{producto.precio}} GS.</p>
             </div>
         </div>
-        <div class="card" style="width: 18rem;">
+        <div id="prod-especifico" class="card" style="width: 18rem;">
             <h3>{{producto.nombre}}</h3>
             <p class="text-start">Categoría: {{funciones.obtener_categoria(producto.categoria_id)}}</p>
-            <p>Precio: {{producto.precio}} Gs.</p>
-            <p>Medios de Pagos:</p>
+            <p class="text-start">Precio: {{producto.precio}} Gs.</p>
+            <p class="text-start">Medios de Pagos:</p>
             <img src="{{ url_for('static', filename='images/paypal.svg') }}" alt="paypal logo">
             <form action="{{url_for('agregar_carrito')}}" method="post">
                 <label for="cantidad">Cantidad: </label>
                 <input type="number" min="0" name="cantidad">
                 <input type="hidden" name="id" value="{{producto.id}}">
-                <button type="submit">Añadir al carrito</button>
+                <button class="btn btn-primary" type="submit">Añadir al carrito</button>
             </form>
+            <!--Errores Flash-->
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            <div class="mensaje_flash">
+                <h2>¡Advertencia!</h2>
+                <ul>
+                {% for message in messages %}
+                    <li>{{message}}</li>
+                {% endfor %}
+                </ul>
+                <button id="aceptar_flash" onclick="desaparecerboton()" class="botones">Aceptar</button>
+            </div>
+            {% endif %}
+            {% endwith %}
         </div>
-        <!--Errores Flash-->
-        {% with messages = get_flashed_messages() %}
-        {% if messages %}
-        <div class="mensaje_flash">
-            <h2>¡Advertencia!</h2>
-            <ul>
-            {% for message in messages %}
-                <li>{{message}}</li>
-            {% endfor %}
-            </ul>
-            <button id="aceptar_flash" onclick="desaparecerboton()" class="botones">Aceptar</button>
-        </div>
-        {% endif %}
-        {% endwith %}
     </main>
     
 </body>

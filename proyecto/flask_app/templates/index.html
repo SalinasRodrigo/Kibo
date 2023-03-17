@@ -83,8 +83,23 @@
                 </div>
             </nav>
             {% endif %}
+            
         </header>
         <main class="mt-5">
+            <!--Errores Flash-->
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            <div class="mensaje_flash">
+                <h2>¡Advertencia!</h2>
+                <ul>
+                {% for message in messages %}
+                    <li>{{message}}</li>
+                {% endfor %}
+                </ul>
+                <button id="aceptar_flash" onclick="desaparecerboton()" class="botones">Aceptar</button>
+            </div>
+            {% endif %}
+            {% endwith %}
             <div class="container">
                 <h3 class="mb-3">Nuevos productos:</h3>
                 <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
@@ -205,19 +220,5 @@
                 </div>
             </div>
         </div>
-        <!--Errores Flash-->
-        {% with messages = get_flashed_messages() %}
-        {% if messages %}
-        <div class="mensaje_flash">
-            <h2>¡Advertencia!</h2>
-            <ul>
-            {% for message in messages %}
-                <li>{{message}}</li>
-            {% endfor %}
-            </ul>
-            <button id="aceptar_flash" onclick="desaparecerboton()" class="botones">Aceptar</button>
-        </div>
-        {% endif %}
-        {% endwith %}
     </body>
 </html>
