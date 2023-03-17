@@ -42,7 +42,7 @@
                             <div class="navbar-nav d-flex">
                                 <ul class="navbar-nav d-flex justify-content-center align-items-center">
                                     <li class="nav-item">
-                                        <a class="nav-link active" href="#">Carrito</a>
+                                        <a class="nav-link active" href="{{ url_for('mostrar_carrito') }}">Carrito</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link active" href="{{ url_for('logout') }}">Cerrar sesión</a>
@@ -69,7 +69,7 @@
                         <div class="navbar-nav d-flex">
                             <ul class="navbar-nav d-flex justify-content-center align-items-center">
                                 <li class="nav-item">
-                                    <a class="nav-link active" href="#">Carrito</a>
+                                    <a class="nav-link active" href="{{ url_for('mostrar_carrito') }}">Carrito</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link active" data-toggle="modal" data-target="#registro">Registrarse</a>
@@ -118,7 +118,7 @@
                                                 <p class="descuento">-{{producto.descuento}}%</p>
                                                 <img class="card-img-top" src="{{producto.imagen}}" alt="Card image cap">
                                                 <div class="card-body">
-                                                    <h5 class="card-title">{{producto.nombre}}</h5>
+                                                    <a href="/producto_seleccionado/{{producto.id}}"><h5 class="card-title">{{producto.nombre}}</h5></a>
                                                     <p>Precio: {{producto.precio}} Gs.</p>
                                                 </div>
                                             </div>
@@ -133,7 +133,7 @@
                                             <p class="descuento">-{{producto.descuento}}%</p>
                                             <img class="card-img-top" src="{{producto.imagen}}" alt="Card image cap">
                                             <div class="card-body">
-                                                <h5 class="card-title">{{producto.nombre}}</h5>
+                                                <a href="/producto_seleccionado/{{producto.id}}"><h5 class="card-title">{{producto.nombre}}</h5></a>
                                                 <p>Precio: {{producto.precio}} Gs.</p>
                                             </div>
                                         </div>
