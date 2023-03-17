@@ -72,8 +72,16 @@ class Producto:
         else:
             return None
         
-    
-    
+    @classmethod
+    def getProducto(cls,data):
+        query = "SELECT * FROM productos WHERE nombre LIKE '' OR descripcion LIKE '';"
+        results = connectToMySQL('proyecto_grupal_bd').query_db(query,data)
+        print(results)
+        if len(results) > 0:
+            return results
+        else:
+            return None
+
     @classmethod
     def save(cls,data):
         query = """INSERT INTO productos (nombre, descripcion, precio, descuento, imagen, stock_ideal, stock_disponible, created_at, 

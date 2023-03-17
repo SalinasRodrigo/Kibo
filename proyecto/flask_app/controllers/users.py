@@ -48,10 +48,14 @@ def index():
 def pedido():
     return render_template('finalizar_pedido.html')
 
-@app.route('/buscador')
+@app.route('/buscador', methods=["GET", "POST"])
 def buscador():
-
-    return render_template('buscador.html')
+    if request.method == "POST":
+        data ={
+            'search' : request.form["search"]
+            }
+        producto = Producto.getProducto(data)
+    return render_template('buscador.html', producto=producto)
 
 @app.route('/registrar', methods=['POST', 'GET'])
 def registro():

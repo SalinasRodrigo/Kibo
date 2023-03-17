@@ -122,78 +122,24 @@
                 </form>
             </aside>
             <section class="pl-5 d-flex flex-wrap w-75">
+                
+                {% if producto | length != 0 %}
+
+                {% for p in products %}
+
                 <div class="card mt-3 mr-3" style="width: 18rem;">
                     <p class="descuento">-0%</p>
                     <img class="card-img-top" src="{{ url_for('static', filename='assets/1.jpg') }}" alt="Card image cap">
                     <div class="card-body">
-                        <h5 class="card-title">Nombre del producto</h5>
-                        <p>Precio: 100.000 Gs.</p>
+                        <h5 class="card-title">{{p.nombre}}</h5>
+                        <p>Precio: {{p.precio}}</p>
                     </div>
                 </div>
-                <div class="card mt-3 mr-3" style="width: 18rem;">
-                    <p class="descuento">-0%</p>
-                    <img class="card-img-top" src="{{ url_for('static', filename='assets/1.jpg') }}" alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title">Nombre del producto</h5>
-                        <p>Precio: 100.000 Gs.</p>
-                    </div>
-                </div>
-                <div class="card mt-3 mr-3" style="width: 18rem;">
-                    <p class="descuento">-0%</p>
-                    <img class="card-img-top" src="{{ url_for('static', filename='assets/1.jpg') }}" alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title">Nombre del producto</h5>
-                        <p>Precio: 100.000 Gs.</p>
-                    </div>
-                </div>
-                <div class="card mt-3 mr-3" style="width: 18rem;">
-                    <p class="descuento">-0%</p>
-                    <img class="card-img-top" src="{{ url_for('static', filename='assets/1.jpg') }}" alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title">Nombre del producto</h5>
-                        <p>Precio: 100.000 Gs.</p>
-                    </div>
-                </div>
-                <div class="card mt-3 mr-3" style="width: 18rem;">
-                    <p class="descuento">-0%</p>
-                    <img class="card-img-top" src="{{ url_for('static', filename='assets/1.jpg') }}" alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title">Nombre del producto</h5>
-                        <p>Precio: 100.000 Gs.</p>
-                    </div>
-                </div>
-                <div class="card mt-3 mr-3" style="width: 18rem;">
-                    <p class="descuento">-0%</p>
-                    <img class="card-img-top" src="{{ url_for('static', filename='assets/1.jpg') }}" alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title">Nombre del producto</h5>
-                        <p>Precio: 100.000 Gs.</p>
-                    </div>
-                </div>
-                <div class="card mt-3 mr-3" style="width: 18rem;">
-                    <p class="descuento">-0%</p>
-                    <img class="card-img-top" src="{{ url_for('static', filename='assets/1.jpg') }}" alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title">Nombre del producto</h5>
-                        <p>Precio: 100.000 Gs.</p>
-                    </div>
-                </div>
-                <div class="card mt-3 mr-3" style="width: 18rem;">
-                    <p class="descuento">-0%</p>
-                    <img class="card-img-top" src="{{ url_for('static', filename='assets/1.jpg') }}" alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title">Nombre del producto</h5>
-                        <p>Precio: 100.000 Gs.</p>
-                    </div>
-                </div>
-                <div class="card mt-3 mr-3" style="width: 18rem;">
-                    <p class="descuento">-0%</p>
-                    <img class="card-img-top" src="{{ url_for('static', filename='assets/1.jpg') }}" alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title">Nombre del producto</h5>
-                        <p>Precio: 100.000 Gs.</p>
-                    </div>
-                </div>
+
+                {% endfor %}
+                {% else %}
+                    <h1>No hay Resultados</h1>
+                {% endif %}
 
             </section>
         </main>
