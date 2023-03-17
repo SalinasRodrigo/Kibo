@@ -21,7 +21,6 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
         <!--css-->
         <link rel="stylesheet" href="../static/css/style.css">
-        <!--font--> 
     </head>
     <body>
         <header>
@@ -84,12 +83,12 @@
                 </nav>
             {% endif %}
         </header>
-        <main>
-            <div class="mt-5 pt-5 pl-5 pr-5">
+        <main class="ml-1">
+            <div class="mt-5 pt-2 pr-2">
                 <form action="">
                     <div class="d-flex justify-content-around">
                         <div class="lista_productos">
-                            <table class="table table-borderless">
+                            <table class="table table-hover">
                                 <thead>
                                     <th>Producto</th>
                                     <th>Cantidad</th>
@@ -139,7 +138,7 @@
                                     <input type="text" class="form-control w-100" id="direccion" name="direccion" value="{{usuario.direccion}}" disabled>
                                 </div>
                             </div>
-                            <h3 class="pt-3">Medio de pago:</h3>
+                            <h5 class="pt-3">Medio de pago:</h5>
                             <div class="row justify-content-start pt-2 pl-4">
                                 <div class="form-group d-flex ">
                                     <label for="medio" class="mb-0 mr-2">Paypal</label>
@@ -163,7 +162,7 @@
                     <input type="hidden" name="return" value="http://127.0.0.1:5000/pago_exitoso/">
                     <input type="hidden" name="cancel_return" value="http://127.0.0.1:5000/pago_cancelado/">
                     <input type="hidden" name="notify_url" value="http://104.236.221.91/ipn/"><!--Para seguimiento-->
-                    <input type="submit" value="Terminar Compra" name="submit" class="btn btn-primary">
+                    <input type="submit" value="Terminar Compra" name="submit" class="btn btn-primary ml-5">
                 </form>
             </div>
         </main>
