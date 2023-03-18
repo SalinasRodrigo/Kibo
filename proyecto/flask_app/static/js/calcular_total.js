@@ -4,7 +4,14 @@ document.addEventListener("DOMContentLoaded", () => {
         total += Number($(this).text());
     });
     $("#total").text(total + " Gs")
-    $("#amount").val(total/7183)
+
+    fetch('https://dolar.melizeche.com/api/1.0/')
+        .then(response => response.json())
+        .then(json =>  $("#amount").val(total/((json.dolarpy.cambioschaco.venta+json.dolarpy.cambioschaco.compra)/2))
+        .catch(err => console.log('Solicitud fallida', err))
+            )
+
+    //$("#amount").val(total/7183)
     // var myHeaders = new Headers();
     // myHeaders.append("apikey", "VuyHKMdNT4YKzpNMI1YJondBp989w3fU");
     

@@ -97,7 +97,7 @@
                             <p class="card-text"><strong>Descripcción:</strong> {{producto.descripcion}}</p>
                             {% if producto.descuento  %} 
                                 <p><del><strong>Precio Anterior:</strong> {{producto.precio}} Gs.</del></p>
-                                <p><strong>Oferta:</strong> {{producto.obtener_precio(producto.id)}} Gs.</p>
+                                <p><strong>Oferta:</strong> {{funciones.obtener_precio(producto.id)}} Gs.</p>
                             {% else %}
                                 <p><strong>Precio:</strong> {{producto.precio}} Gs.</p>
                             {% endif %}
