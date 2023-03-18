@@ -129,22 +129,6 @@ aside{
 
 
 /*Producto seleccionado*/
-#prod-especifico {
-    padding-left: 15px;
-}
-
-#prod-especifico img{
-    width:150px;
-    margin-bottom: 20px;
-}
-
-#prod-especifico button {
-    margin-top: 20px;
-}
-
-#prod-especifico h3 {
-    margin: 15px 0 20px 0;
-}
 
 #prod-especifico form input {
     width: 30%;

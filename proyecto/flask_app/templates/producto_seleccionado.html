@@ -83,27 +83,36 @@
                 </nav>
             {% endif %}
     </header>
-    <main class="d-flex justify-content-around mt-5">
-        <div class="card" style="width: 18rem;">
-            <p class="descuento">-{{producto.descuento}}%</p>
-            <img class="card-img-top" src="{{producto.imagen}}" alt="Card image cap">
-            <div class="card-body">
-                <h5 class="card-title">{{producto.nombre}}</h5>
-                <p>Precio: {{producto.precio}} GS.</p>
+    <main class="d-flex justify-content-center mt-5">
+            <div class="card mb-3" style="max-width: 1000px;">
+                <div class="row g-0 mt-1">
+                    <div class="col-md-5">
+                        <img src="{{producto.imagen}}" class="img-fluid rounded-start" alt="Card image cap">
+                    </div>
+                    <div class="col-md-7">
+                        <div class="card-body" id="prod-especifico">
+                            <h5 class="card-title">{{producto.nombre}}</h5>
+                            <p class="card-text"><strong>Categoría:</strong> {{funciones.obtener_categoria(producto.categoria_id)}}</p>
+                            <p class="card-text"><strong>Marca:</strong> {{funciones.obtener_marca(producto.marca_id)}}</p>
+                            <p class="card-text"><strong>Descripcción:</strong> {{producto.descripcion}}</p>
+                            {% if producto.descuento  %} 
+                                <p><del><strong>Precio Anterior:</strong> {{producto.precio}} Gs.</del></p>
+                                <p><strong>Oferta:</strong> {{producto.obtener_precio(producto.id)}} Gs.</p>
+                            {% else %}
+                                <p><strong>Precio:</strong> {{producto.precio}} Gs.</p>
+                            {% endif %}
+                            <p class="card-text">
+                                <form action="{{url_for('agregar_carrito')}}" method="post">
+                                    <label for="cantidad"><strong>Cantidad:</strong> </label>
+                                    <input type="number" min="0" name="cantidad">
+                                    <input type="hidden" name="id" value="{{producto.id}}">
+                                    <button class="btn btn-primary" type="submit"><strong>Añadir al carrito</strong></button>
+                                </form>
+                            </p>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div id="prod-especifico" class="card" style="width: 18rem;">
-            <h3>{{producto.nombre}}</h3>
-            <p class="text-start">Categoría: {{funciones.obtener_categoria(producto.categoria_id)}}</p>
-            <p class="text-start">Precio: {{producto.precio}} Gs.</p>
-            <p class="text-start">Medios de Pagos:</p>
-            <img src="{{ url_for('static', filename='images/paypal.svg') }}" alt="paypal logo">
-            <form action="{{url_for('agregar_carrito')}}" method="post">
-                <label for="cantidad">Cantidad: </label>
-                <input type="number" min="0" name="cantidad">
-                <input type="hidden" name="id" value="{{producto.id}}">
-                <button class="btn btn-primary" type="submit">Añadir al carrito</button>
-            </form>
             <!--Errores Flash-->
             {% with messages = get_flashed_messages() %}
             {% if messages %}
