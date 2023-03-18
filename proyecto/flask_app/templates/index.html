@@ -119,7 +119,7 @@
                                                     <img class="card-img-top" src="{{producto.imagen}}" alt="Card image cap">
                                                     <div class="card-body">
                                                         <h5 class="card-title">{{producto.nombre}}</h5>
-                                                        <p>Precio: {{producto.precio}} Gs.</p>
+                                                        <p>Precio: {% if producto.descuento %} {{producto.precio - (producto.precio*producto.descuento/100)}} {% else %}{{producto.precio}}{% endif %} Gs.</p>
                                                     </div>
                                                 </div>
                                             {%endfor%}
@@ -134,7 +134,7 @@
                                                 <img class="card-img-top" src="{{producto.imagen}}" alt="Card image cap">
                                                 <div class="card-body">
                                                     <h5 class="card-title">{{producto.nombre}}</h5>
-                                                    <p>Precio: {{producto.precio}} Gs.</p>
+                                                    <p>Precio: {% if producto.descuento %} {{producto.precio - (producto.precio*producto.descuento/100)}} {% else %}{{producto.precio}}{% endif %} Gs.</p>
                                                 </div>
                                             </div>
                                         {%endfor%}
