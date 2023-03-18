@@ -157,7 +157,7 @@
                         {%endif%}
                     </div>
                 </div>
-                <div class="grandes_descuentos mt-5">
+                <div class="grandes_descuentos mt-5 mb-5">
                     <h3 class="mb-3">Grandes descuentos:</h3>
                     <div id="carruselDescuentos" class="carousel slide bg-secondary rounded p-2" data-ride="carousel">
                         {%if lista_descuentos|length > 1 %}
@@ -178,7 +178,8 @@
                                                     <img class="card-img-top" src="{{producto.imagen}}" alt="Card image cap">
                                                     <div class="card-body">
                                                         <h5 class="card-title">{{producto.nombre}}</h5>
-                                                        <p>Precio: {{producto.precio}} Gs.</p>
+                                                        <p><del>Precio Anterior: {{producto.precio}}</del></p>
+                                                        <p>Precio de Oferta: {{producto.precio - (producto.precio*producto.descuento/100)}} Gs.</p>
                                                     </div>
                                                 </div>
                                             {%endfor%}
@@ -193,7 +194,7 @@
                                                 <img class="card-img-top" src="{{producto.imagen}}" alt="Card image cap">
                                                 <div class="card-body">
                                                     <h5 class="card-title">{{producto.nombre}}</h5>
-                                                    <p>Precio: {{producto.precio}} Gs.</p>
+                                                    <p>Precio: {{producto.precio - (producto.precio*producto.descuento/100)}} Gs.</p>
                                                 </div>
                                             </div>
                                         {%endfor%}
