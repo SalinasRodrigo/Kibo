@@ -133,3 +133,10 @@ aside{
 #prod-especifico form input {
     width: 30%;
 }
+
+
+/*Subtotal al finalizar compra*/
+.col_subtotal {
+    text-align: end;
+    color: red;
+}

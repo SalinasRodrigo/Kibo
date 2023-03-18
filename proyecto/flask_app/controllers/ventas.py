@@ -35,10 +35,11 @@ def procesar_venta():
     Venta_cab.update(datos_update)
     session.pop('nuevo')
     session.pop('carrito')
+    flash("Su pago fue procesado exitosamente.")
     return redirect("/")
 
 
 @app.route('/pago_cancelado/')
 def pago_cancelado():
-    print("Bajón cancelaste")
+    flash("Pago cancelado.")
     return redirect("/")

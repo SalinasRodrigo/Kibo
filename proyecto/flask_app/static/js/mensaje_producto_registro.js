@@ -41,7 +41,12 @@ document.addEventListener("DOMContentLoaded", () => {
           if (response.redirected) {
             window.location.assign(response.url)
           } else {
-            console.log("Error")
+            response.json().then(data => {
+              etiquetaError.innerHTML = ""
+              etiquetaError.innerHTML += "<li>" + data.mensaje + "</li>"
+              var boxMensaje = document.querySelector(".mensaje")
+              boxMensaje.style.display = "flex"
+            });
           }
         })
       }

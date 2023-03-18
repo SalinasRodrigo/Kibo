@@ -94,10 +94,10 @@ class Producto:
         return productos
     
     @classmethod
-    def get_busqueda_categria(cls, data):
+    def get_busqueda_categoria(cls, data):
         query = """ SELECT * FROM productos 
                     left join categorias on productos.categoria_id = categorias.id
-                    where productos.nombre LIKE '%{}%';""".format(data['busqueda'])
+                    where categorias.nombre LIKE '%{}%';""".format(data['busqueda'])
         mysql = connectToMySQL('proyecto_grupal_bd')
         results = mysql.query_db(query)
         productos = []

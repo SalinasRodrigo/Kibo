@@ -89,24 +89,25 @@
                     <div class="d-flex justify-content-around">
                         <div class="lista_productos">
                             <table class="table table-hover">
-                                <thead>
-                                    <th>Producto</th>
+                                <thead class="text-right">
+                                    <th class="text-left">Producto</th>
                                     <th>Cantidad</th>
                                     <th>SubTotal</th>
                                     <th></th>
                                 </thead>
                                 <tbody>
                                     {% for producto in productos %}
-                                        <tr>
-                                            <td>{{producto.nombre}}</td>
+                                        <tr class="text-right">
+                                            <td class="text-left">{{producto.nombre}}</td>
                                             <td>{{session['carrito'][loop.index0][1]}}</td>
-                                            <td class="subtotales">{{ producto.precio | int *  session['carrito'][loop.index0][1] | int }}</td>
+                                            <td><span class="subtotales">{{ producto.obtener_precio(producto.id) | int *  session['carrito'][loop.index0][1] | int }}</span> Gs.</td>
                                             <td><a href="/carrito_delete/{{producto.id}}">Eliminar</a></td>
                                         </tr>
                                     {% endfor %}
                                     <tr class="border-top">
                                         <th>Costo Total</th>
-                                        <td id="total"></td>
+                                        <td></td>
+                                        <td class="text-right" id="total"></td>
                                     </tr>
                                 </tbody>
                             </table>

@@ -28,8 +28,7 @@ def registrar_producto():
             extension = os.path.splitext(filename)[1]
             #validando la extension
             if not extension in EXTENSIONES_PERMITIDAS:
-                flash("Imagen no válida, las extensiones permitidas son .png, .jpg, .jpeg")
-                return ("/dashboard/productos")
+                return jsonify(mensaje = "Imagen no válida, las extensiones permitidas son .png, .jpg, .jpeg")
 
             nuevoNombreFile     = str(Producto.obtener_id_siguiente()) + extension
             #direccion.parents[0] retrocede una carpeta

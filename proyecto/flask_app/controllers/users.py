@@ -53,7 +53,6 @@ def index():
                 lista=[]
             j+=1
     
- 
     return render_template('index.html', lista_ultimos = ultimos_productos, lista_descuentos = descuento_productos)
 
 @app.route('/pedido')
@@ -77,7 +76,7 @@ def buscador():
     elif data['tipo'] == 'marca':
         productos = Producto.get_busqueda_marca(data)
     elif data['tipo'] == 'categoria':
-        productos = Producto.get_busqueda_categria(data)
+        productos = Producto.get_busqueda_categoria(data)
     elif data['tipo'] == 'nombre':
         productos = Producto.get_busqueda_nombre(data)
         print(productos)

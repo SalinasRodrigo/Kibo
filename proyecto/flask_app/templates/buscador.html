@@ -129,10 +129,15 @@
                         <p class="descuento">-{{producto.descuento}}%</p>
                         <img class="card-img-top" src="{{producto.imagen}}" alt="Card image cap">
                         <div class="card-body">
-                            <h5 class="card-title">{{producto.nombre}}</h5>
-                            <div class="d-flex">
-                                <p class="precio_total">{{producto.precio}}</p><p>Gs.</p>
-                            </div>
+                            <a href="/producto_seleccionado/{{producto.id}}">
+                                <h5 class="card-title">{{producto.nombre}}</h5>
+                            </a>
+                            {% if producto.descuento  %} 
+                                <p><del><strong>Precio Anterior:</strong> {{producto.precio}} Gs.</del></p>
+                                <p><strong>Oferta:</strong> <span class="precio_total">{{producto.obtener_precio(producto.id)}}</span> Gs.</p>
+                            {% else %}
+                                <p><strong>Precio:</strong> <span class="precio_total">{{producto.precio}}</span> Gs.</p>
+                            {% endif %}
                         </div>
                     </div>
                 {%endfor%}
