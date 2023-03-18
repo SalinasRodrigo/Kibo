@@ -60,6 +60,7 @@ def index():
 def pedido():
     return render_template('finalizar_pedido.html')
 
+
 @app.route('/buscador', methods=['POST'])
 def buscador():
     data = {
@@ -81,8 +82,6 @@ def buscador():
         productos = Producto.get_busqueda_nombre(data)
         print(productos)
     return render_template('buscador.html', productos = productos, busqueda = data['busqueda'], tipo = data['tipo'])
-
-    
 
 @app.route('/registrar', methods=['POST', 'GET'])
 def registro():
