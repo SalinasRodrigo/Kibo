@@ -96,6 +96,20 @@
             </nav>
             {% endif %}
         </header>
+        <!--Errores Flash-->
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            <div class="mensaje_flash">
+                <h2>¡Advertencia!</h2>
+                <ul>
+                {% for message in messages %}
+                    <li>{{message}}</li>
+                {% endfor %}
+                </ul>
+                <button id="aceptar_flash" onclick="desaparecerboton()" class="botones">Aceptar</button>
+            </div>
+            {% endif %}
+        {% endwith %}
         <main>
             <div class="container">
                 <div class="ultimos_productos mt-5">
@@ -119,7 +133,12 @@
                                                     <img class="card-img-top" src="{{producto.imagen}}" alt="Card image cap">
                                                     <div class="card-body">
                                                         <h5 class="card-title">{{producto.nombre}}</h5>
-                                                        <p>Precio: {% if producto.descuento %} {{producto.precio - (producto.precio*producto.descuento/100)}} {% else %}{{producto.precio}}{% endif %} Gs.</p>
+                                                        {% if producto.descuento  %} 
+                                                            <p><del><strong>Precio Anterior:</strong> {{producto.precio}} Gs.</del></p>
+                                                            <p><strong>Oferta:</strong> {{producto.obtener_precio(producto.id)}} Gs.</p>
+                                                        {% else %}
+                                                            <p><strong>Precio:</strong> {{producto.precio}} Gs.</p>
+                                                        {% endif %} 
                                                     </div>
                                                 </div>
                                             {%endfor%}
@@ -134,7 +153,12 @@
                                                 <img class="card-img-top" src="{{producto.imagen}}" alt="Card image cap">
                                                 <div class="card-body">
                                                     <h5 class="card-title">{{producto.nombre}}</h5>
-                                                    <p>Precio: {% if producto.descuento %} {{producto.precio - (producto.precio*producto.descuento/100)}} {% else %}{{producto.precio}}{% endif %} Gs.</p>
+                                                    {% if producto.descuento  %} 
+                                                        <p><del><strong>Precio Anterior:</strong> {{producto.precio}} Gs.</del></p>
+                                                        <p><strong>Oferta:</strong> {{producto.obtener_precio(producto.id)}} Gs.</p>
+                                                    {% else %}
+                                                        <p><strong>Precio:</strong> {{producto.precio}} Gs.</p>
+                                                    {% endif %} 
                                                 </div>
                                             </div>
                                         {%endfor%}
@@ -178,8 +202,8 @@
                                                     <img class="card-img-top" src="{{producto.imagen}}" alt="Card image cap">
                                                     <div class="card-body">
                                                         <h5 class="card-title">{{producto.nombre}}</h5>
-                                                        <p><del>Precio Anterior: {{producto.precio}}</del></p>
-                                                        <p>Precio de Oferta: {{producto.precio - (producto.precio*producto.descuento/100)}} Gs.</p>
+                                                        <p><del><strong>Precio Anterior:</strong> {{producto.precio}}</del></p>
+                                                        <p><strong>Oferta:</strong> {{producto.obtener_precio(producto.id)}} Gs.</p>
                                                     </div>
                                                 </div>
                                             {%endfor%}
@@ -194,7 +218,8 @@
                                                 <img class="card-img-top" src="{{producto.imagen}}" alt="Card image cap">
                                                 <div class="card-body">
                                                     <h5 class="card-title">{{producto.nombre}}</h5>
-                                                    <p>Precio: {{producto.precio - (producto.precio*producto.descuento/100)}} Gs.</p>
+                                                    <p><del><strong>Precio Anterior:</strong> {{producto.precio}}</del></p>
+                                                    <p><strong>Oferta:</strong> {{producto.obtener_precio(producto.id)}} Gs.</p>
                                                 </div>
                                             </div>
                                         {%endfor%}
@@ -283,19 +308,5 @@
                 </div>
             </div>
         </div>
-        <!--Errores Flash-->
-        {% with messages = get_flashed_messages() %}
-        {% if messages %}
-        <div class="mensaje_flash">
-            <h2>¡Advertencia!</h2>
-            <ul>
-            {% for message in messages %}
-                <li>{{message}}</li>
-            {% endfor %}
-            </ul>
-            <button id="aceptar_flash" onclick="desaparecerboton()" class="botones">Aceptar</button>
-        </div>
-        {% endif %}
-        {% endwith %}
     </body>
 </html>

@@ -114,10 +114,10 @@ aside{
     margin: 0;
 }
 
-<<<<<<< HEAD
 .carousel-indicators{
     bottom: -10px;
-=======
+}
+
 .mensaje button, .mensaje_flash button {
     background-color: rgb(215, 215, 6);
     color: black;
@@ -125,8 +125,8 @@ aside{
     display: flex;
     justify-content: center;
     align-items: center;
->>>>>>> 947b7aac8e8158e9e8db306e527f13cac4d4d360
 }
+
 
 /*Producto seleccionado*/
 #prod-especifico {
