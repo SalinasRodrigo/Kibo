@@ -37,6 +37,17 @@ class Producto:
         return productos
     
     @classmethod
+    def get_descuentos(cls):
+        query = """ SELECT * FROM productos  WHERE stock_disponible > 0 AND descuento > 0
+                    ORDER BY descuento desc LIMIT 12; """
+        mysql = connectToMySQL('proyecto_grupal_bd')
+        results = mysql.query_db(query)
+        productos = []
+        for row in results:
+            productos.append(cls(row))
+        return productos
+    
+    @classmethod
     def get_carrito(cls, ids):
         productos = []
         for id in ids:
@@ -58,6 +69,41 @@ class Producto:
             return result[0]
         else:
             return None
+        
+    @classmethod
+    def get_busqueda_nombre(cls, data):
+        query = "SELECT * FROM productos WHERE nombre LIKE '%{}%';".format(data['busqueda'])
+        mysql = connectToMySQL('proyecto_grupal_bd')
+        results = mysql.query_db(query)
+        productos = []
+        for row in results:
+            productos.append(cls(row))
+        return productos
+
+    @classmethod
+    def get_busqueda_marca(cls, data):
+        query = """ SELECT * FROM productos 
+                    left join marcas on productos.marca_id = marcas.id
+                    where marcas.nombre LIKE '%{}%';""".format(data['busqueda'])
+        print(query)
+        mysql = connectToMySQL('proyecto_grupal_bd')
+        results = mysql.query_db(query)
+        productos = []
+        for row in results:
+            productos.append(cls(row))
+        return productos
+    
+    @classmethod
+    def get_busqueda_categria(cls, data):
+        query = """ SELECT * FROM productos 
+                    left join categorias on productos.categoria_id = categorias.id
+                    where productos.nombre LIKE '%{}%';""".format(data['busqueda'])
+        mysql = connectToMySQL('proyecto_grupal_bd')
+        results = mysql.query_db(query)
+        productos = []
+        for row in results:
+            productos.append(cls(row))
+        return productos
 
     @classmethod
     def get_stock(cls, id):

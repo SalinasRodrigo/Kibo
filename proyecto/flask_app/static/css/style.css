@@ -56,7 +56,7 @@
 
 
 aside{
-    width: 19.5%;
+    width: 17%;
 }
 
 .select_buscador{
@@ -67,6 +67,10 @@ aside{
     position: -webkit-sticky;
     position: sticky;
     top: 0;
+}
+
+.precio{
+    width: 70%;
 }
 
 
@@ -107,6 +111,9 @@ aside{
     margin: 0;
 }
 
+.carousel-indicators{
+    bottom: -10px;
+}
 
 
 
