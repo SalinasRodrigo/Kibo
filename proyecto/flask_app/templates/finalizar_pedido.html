@@ -140,18 +140,12 @@
                                 </div>
                             </div>
                             <h5 class="pt-3">Medio de pago:</h5>
-                            <div class="row justify-content-start pt-2 pl-4">
-                                <div class="form-group d-flex ">
-                                    <label for="medio" class="mb-0 mr-2">Paypal</label>
-                                    <input type="radio" class="form-control" id="medio" name="medio" >
-                                </div>
-                            </div>
+                            <img class="logo_paypal" src="../static/images/paypal.svg" alt="logo de la paypal">
                             <!-- <div class="d-flex justify-content-end ">
                                 <input type="submit" class="btn btn-primary" value="Terminar compra">
                             </div> -->
                         </div>
                     </div>
-                    
                 </form>
                 <form name="topaypal" action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post">
                     <input type="hidden" name="cmd" value="_xclick">
@@ -163,7 +157,7 @@
                     <input type="hidden" name="return" value="http://127.0.0.1:5000/pago_exitoso/">
                     <input type="hidden" name="cancel_return" value="http://127.0.0.1:5000/pago_cancelado/">
                     <input type="hidden" name="notify_url" value="http://104.236.221.91/ipn/"><!--Para seguimiento-->
-                    <input type="submit" value="Terminar Compra" name="submit" class="btn btn-primary ml-5">
+                    <input type="submit" value="Terminar Compra" name="submit" class="btn btn-primary ml-5" id="bt_finalizar">
                 </form>
             </div>
         </main>

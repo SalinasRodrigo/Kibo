@@ -140,3 +140,13 @@ aside{
     text-align: end;
     color: red;
 }
+
+.logo_paypal{
+    margin: 20px 0 20px 0;
+    width: 50%;
+}
+
+#bt_finalizar{
+    position: absolute;
+    right: 5%;
+}
