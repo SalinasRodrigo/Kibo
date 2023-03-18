@@ -15,47 +15,73 @@ app.secret_key = 'secret_key'
 
 @app.route('/')
 def index():
-    productos = Producto.get_nuevos()
-    L_d_L=[]
+    #Traemos los ultimos productos de la base de datos
+    ultimos_db = Producto.get_nuevos()
+    #Creamos una lista vacía que contendra lista de productos 
+    ultimos_productos=[]
+    #lista en la que guardaremos productos y que luego agregaremos a una lista de listas
     lista=[]
+    #Contador
     j=1
 
-    for producto in productos:
-        lista.append(producto)
-        
+    if len(ultimos_db)<4:
+        ultimos_productos.append(ultimos_productos)
+    else:
+        for producto in ultimos_db:
+            lista.append(producto)
+            if (j%4==0):
+                ultimos_productos.append(lista)
+                lista=[]
+            j+=1
 
-        if (j%4==0):
-            L_d_L.append(lista)
-            lista=[]
-
-        j+=1
-        
-        
-
-    # while (i<len(productos)):
-    #     j=0
-    #     lista=[]
-    #     while(j<4):
-    #         lista.append(productos[i])
-    #         j+=1
-    #         i+=1
-    #     L_d_L.append(lista)
-
-
-    return render_template('index.html', lista = L_d_L)
+    #Traemos los productos con mas descuento de la base de datos
+    descuentos_db = Producto.get_descuentos()
+    #Lista de lista para listas de como maximo 4 productos 
+    descuento_productos=[]
+    #lista de productos
+    lista=[]
+    #contador
+    j=1
+    
+    if len(descuentos_db)<4:
+        descuento_productos.append(descuentos_db)
+    else:
+        for producto in descuentos_db:
+            lista.append(producto)
+            if (j%4==0):
+                descuento_productos.append(lista)
+                lista=[]
+            j+=1
+    
+ 
+    return render_template('index.html', lista_ultimos = ultimos_productos, lista_descuentos = descuento_productos)
 
 @app.route('/pedido')
 def pedido():
     return render_template('finalizar_pedido.html')
 
-@app.route('/buscador', methods=["GET", "POST"])
+
+@app.route('/buscador', methods=['POST'])
 def buscador():
-    if request.method == "POST":
-        data ={
-            'search' : request.form["search"]
-            }
-        producto = Producto.getProducto(data)
-    return render_template('buscador.html', producto=producto)
+    data = {
+        'busqueda': request.form['busqueda'],
+        'tipo': request.form['tipo']
+    }
+    print(data)
+    if data['busqueda'] == '':
+        productos = Producto.get_all()
+    elif data['tipo'] == 'id':
+        producto = Producto.get_one(data['busqueda'])
+        print(producto)
+        return redirect('/producto_seleccionado/'+str(producto['id']))
+    elif data['tipo'] == 'marca':
+        productos = Producto.get_busqueda_marca(data)
+    elif data['tipo'] == 'categoria':
+        productos = Producto.get_busqueda_categria(data)
+    elif data['tipo'] == 'nombre':
+        productos = Producto.get_busqueda_nombre(data)
+        print(productos)
+    return render_template('buscador.html', productos = productos, busqueda = data['busqueda'], tipo = data['tipo'])
 
 @app.route('/registrar', methods=['POST', 'GET'])
 def registro():
