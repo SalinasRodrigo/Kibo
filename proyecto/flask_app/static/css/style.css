@@ -72,8 +72,22 @@ aside{
     width: 70%;
 }
 
+.carousel-indicators .active {
+    background-color: #413F42;
+    
+}
 
-
+.carousel-indicators li {
+    position: relative;
+    -ms-flex: 0 1 auto;
+    flex: 0 1 auto;
+    width: 30px;
+    height: 3px;
+    margin-right: 3px;
+    margin-left: 3px;
+    text-indent: -999px;
+    background-color: #7F8487;
+  }
 
 .lista_productos{
     width: 55%;
