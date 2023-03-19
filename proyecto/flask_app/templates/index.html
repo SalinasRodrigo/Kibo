@@ -35,14 +35,14 @@
                             <a class="navbar-brand" href="/">
                                 <img src="../static/images/logo_principal.svg" alt="logo de la pagina web">
                             </a>
-                            <form id="buscador" class="d-flex" action="/buscador" method="POST">
-                                <select name="tipo" class="form-control w-25" id="tipo">
-                                    <option value="nombre" selected>Nombre</option>
+                            <form id="buscador" class="d-flex ml-5" action="/buscador" method="POST">
+                                <select name="tipo" class="form-control w-25" id="tipo" value="{{tipo}}">
+                                    <option value="nombre">Nombre</option>
                                     <option value="id" >ID</option>
                                     <option value="marca" >Marca</option>
                                     <option value="categoria" >Categoría</option>
                                 </select>
-                                <input class="form-control me-2" type="search" placeholder="Buscar" name="busqueda" aria-label="Buscar" value="">
+                                <input class="form-control me-2" type="search" placeholder="Buscar" name="busqueda" aria-label="Buscar" value="{{busqueda}}">
                                 <input type="submit" class="btn btn-primary" value="Buscar">
                             </form>
                             <div class="navbar-nav d-flex">
@@ -68,20 +68,20 @@
                             <a class="navbar-brand" href="/">
                             <img src="../static/images/logo_principal.svg" alt="logo de la pagina web">
                         </a>
-                        <form id="buscador" class="d-flex" action="/buscador" method="POST">
-                            <select class="form-control w-25" id="tipo" name="tipo">
-                                <option value="nombre" selected>Nombre</option>
+                        <form id="buscador" class="d-flex ml-5" action="/buscador" method="POST">
+                            <select class="form-control w-25" id="tipo" name="tipo" value="{{tipo}}">
+                                <option value="nombre">Nombre</option>
                                 <option value="id" >ID</option>
                                 <option value="marca" >Marca</option>
                                 <option value="categoria" >Categoría</option>
                             </select>
-                            <input class="form-control me-2" type="search" placeholder="Buscar" name="busqueda" value="">
+                            <input class="form-control me-2" type="search" placeholder="Buscar" name="busqueda" value="{{busqueda}}">
                             <input type="submit" class="btn btn-primary" value="Buscar">
                         </form>
                         <div class="navbar-nav d-flex">
                             <ul class="navbar-nav d-flex justify-content-center align-items-center">
                                 <li class="nav-item">
-                                    <a class="nav-link active" href="{{ url_for('mostrar_carrito') }}">Carrito</a>
+                                    <a class="nav-link active" href="#">Carrito</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link active" data-toggle="modal" data-target="#registro">Registrarse</a>

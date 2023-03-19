@@ -35,7 +35,7 @@
                             <a class="navbar-brand" href="/">
                                 <img src="../static/images/logo_principal.svg" alt="logo de la pagina web">
                             </a>
-                            <form id="buscador" class="d-flex" action="/buscador" method="POST">
+                            <form id="buscador" class="d-flex ml-5" action="/buscador" method="POST">
                                 <select name="tipo" class="form-control w-25" id="tipo" value="{{tipo}}">
                                     <option value="nombre">Nombre</option>
                                     <option value="id" >ID</option>
@@ -68,7 +68,7 @@
                             <a class="navbar-brand" href="/">
                             <img src="../static/images/logo_principal.svg" alt="logo de la pagina web">
                         </a>
-                        <form id="buscador" class="d-flex" action="/buscador" method="POST">
+                        <form id="buscador" class="d-flex ml-5" action="/buscador" method="POST">
                             <select class="form-control w-25" id="tipo" name="tipo" value="{{tipo}}">
                                 <option value="nombre">Nombre</option>
                                 <option value="id" >ID</option>
@@ -141,7 +141,102 @@
                         </div>
                     </div>
                 {%endfor%}
+                {%if not productos%}
+                    <div class="p-5">
+                        <h4>No se encontraron productos =(</h4>
+                    </div>
+                {%endif%}
             </section>
         </main>
+        <div class="modal fade" id="inicio">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <!-- cabecera del diálogo -->
+                    <div class="modal-header">
+                        <h4 class="modal-title">Login</h4>
+                        <button type="button" class="close" data-dismiss="modal">X</button>
+                    </div>
+                    <!-- cuerpo del diálogo -->
+                    <form action="" method="POST">
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="email">Email:</label>
+                                <input class="form-control" type="text" name="email">
+                                <label for="contraseña">Password:</label>
+                                <input class="form-control" id="contraseña" type="password" name="contraseña">
+                            </div>
+                        </div>
+                        <!-- pie del diálogo -->
+                        <div class="modal-footer">
+                            <input type="submit" class="btn btn-primary mt-2">    
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="inicio">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <!-- cabecera del diálogo -->
+                    <div class="modal-header">
+                        <h4 class="modal-title">Login</h4>
+                        <button type="button" class="close" data-dismiss="modal">X</button>
+                    </div>
+                    <!-- cuerpo del diálogo -->
+                    <form action="{{url_for('login')}}" method="POST">
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="email">Email:</label>
+                                <input class="form-control" type="text" name="correo">
+                                <label for="contraseña">Contraseña:</label>
+                                <input class="form-control" id="contraseña" type="password" name="contraseña">
+                            </div>
+                        </div>
+                    
+                        <!-- pie del diálogo -->
+                        <div class="modal-footer">
+                            <input type="submit" class="btn btn-primary mt-2">    
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="registro">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <!-- cabecera del diálogo -->
+                    <div class="modal-header">
+                        <h4 class="modal-title">Registro</h4>
+                        <button type="button" class="close" data-dismiss="modal">X</button>
+                    </div>
+                    <!-- cuerpo del diálogo -->
+                    <form action="{{url_for('registro')}}" method="POST">
+                        <div class="modal-body">
+                            
+                            <div class="form-group">    
+                                <label for="nombre">Nombre:</label>
+                                <input class="form-control" id="nombre" type="text" name="nombre">
+                                <label for="apellido">Apellido:</label>
+                                <input class="form-control" id="apellido" type="text" name="apellido">
+                                <label for="celular">Telefono:</label>
+                                <input class="form-control" id="celular" type="text" name="celular">
+                                <label for="direccion">Dirección:</label>
+                                <input class="form-control" id="direccion" type="text" name="direccion">
+                                <label for="correo">Email:</label>
+                                <input class="form-control" id="correo" type="text" name="correo">
+                                <label for="contraseña">Contraseña:</label>
+                                <input class="form-control" id="contraseña" type="password" name="contraseña">
+                                <label for="confi">Confirmacion:</label>
+                                <input class="form-control" id="confi" type="password" name="confi">  
+                            </div>
+                        </div>
+                        <!-- pie del diálogo -->
+                        <div class="modal-footer">
+                            <input type="submit" class="btn btn-primary mt-2">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>   
     </body>
 </html>

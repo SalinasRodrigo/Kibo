@@ -57,17 +57,16 @@
 
 aside{
     width: 17%;
+    height: 757px;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
 }
 
 .select_buscador{
     width: 70%;
 }
 
-.sidebar{
-    position: -webkit-sticky;
-    position: sticky;
-    top: 0;
-}
 
 .precio{
     width: 70%;
