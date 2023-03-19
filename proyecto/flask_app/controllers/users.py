@@ -55,11 +55,6 @@ def index():
     
     return render_template('index.html', lista_ultimos = ultimos_productos, lista_descuentos = descuento_productos)
 
-@app.route('/pedido')
-def pedido():
-    return render_template('finalizar_pedido.html')
-
-
 @app.route('/buscador', methods=['POST'])
 def buscador():
     data = {
@@ -71,15 +66,16 @@ def buscador():
         productos = Producto.get_all()
     elif data['tipo'] == 'id':
         producto = Producto.get_one(data['busqueda'])
-        print(producto)
-        return redirect('/producto_seleccionado/'+str(producto['id']))
+        if producto != None:
+            return redirect('/producto_seleccionado/'+str(producto['id']))
+        else:
+            productos = []
     elif data['tipo'] == 'marca':
         productos = Producto.get_busqueda_marca(data)
     elif data['tipo'] == 'categoria':
         productos = Producto.get_busqueda_categoria(data)
     elif data['tipo'] == 'nombre':
         productos = Producto.get_busqueda_nombre(data)
-        print(productos)
     return render_template('buscador.html', productos = productos, busqueda = data['busqueda'], tipo = data['tipo'])
 
 @app.route('/registrar', methods=['POST', 'GET'])

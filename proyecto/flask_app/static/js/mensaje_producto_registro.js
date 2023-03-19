@@ -34,7 +34,6 @@ document.addEventListener("DOMContentLoaded", () => {
         var boxMensaje = document.querySelector(".mensaje")
         boxMensaje.style.display = "flex"
         errores = []
-        count = 0
       }else{
         fetch("/process_producto", { method :'POST', body : form})
         .then(response => {
@@ -56,7 +55,84 @@ document.addEventListener("DOMContentLoaded", () => {
       botonAceptar.addEventListener("click", function () {
         boxMensaje.style.display = "none";
       });
+  }
+  }
 
+  var myForm2 = document.getElementById('crear_categoria');
+  if (myForm2 != null){
+    myForm2.onsubmit = function(e){
+      e.preventDefault();
+      var error = "";
+      var form = new FormData(myForm2);
+      var is_valid = true
+
+      if (form.get("nombre").length < 5){
+        error = "El nombre debe tener al menos 3 caracteres.";
+        is_valid = false
+      }
+
+      var etiquetaError = document.querySelector("#error")
+      if(!is_valid){
+        etiquetaError.innerHTML = ""
+        etiquetaError.innerHTML += "<li>" + error + "</li>"
+        var boxMensaje = document.querySelector(".mensaje")
+        boxMensaje.style.display = "flex"
+        error = ""
+      }else{
+        fetch("/process_categoria", { method :'POST', body : form})
+        .then(response => {
+          if (response.redirected) {
+            window.location.assign(response.url)
+          } else {
+            console.log("Error")
+          }
+        })
+      }
+      
+      var botonAceptar = document.querySelector("#aceptar");
+      var boxMensaje = document.querySelector(".mensaje");
+      botonAceptar.addEventListener("click", function () {
+        boxMensaje.style.display = "none";
+      });
+  }
+  }
+
+  var myForm3 = document.getElementById('crear_marca');
+  if (myForm3 != null){
+    myForm3.onsubmit = function(e){
+      e.preventDefault();
+      var error = "";
+      var form = new FormData(myForm3);
+      var is_valid = true
+
+      if (form.get("nombre").length < 5){
+        error = "El nombre debe tener al menos 3 caracteres.";
+        is_valid = false
+      }
+
+      var etiquetaError = document.querySelector("#error")
+      if(!is_valid){
+        etiquetaError.innerHTML = ""
+        etiquetaError.innerHTML += "<li>" + error + "</li>"
+        var boxMensaje = document.querySelector(".mensaje")
+        boxMensaje.style.display = "flex"
+        error = ""
+      }else{
+        fetch("/process_marca", { method :'POST', body : form})
+        .then(response => {
+          if (response.redirected) {
+            window.location.assign(response.url)
+          } else {
+            console.log("Error")
+          }
+        })
+      }
+      
+      var botonAceptar = document.querySelector("#aceptar");
+      var boxMensaje = document.querySelector(".mensaje");
+      botonAceptar.addEventListener("click", function () {
+        boxMensaje.style.display = "none";
+      });
   }
   }
   

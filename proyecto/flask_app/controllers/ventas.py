@@ -9,7 +9,7 @@ from ..models.venta_det import Venta_det
 @app.route('/pago_exitoso/')
 def procesar_venta():
     datos_venta_cab = {
-        "usuario_id" : 1
+        "usuario_id" : session["user_id"]
     }
     Venta_cab.save(datos_venta_cab)
     ids = []
@@ -20,7 +20,7 @@ def procesar_venta():
             "cantidad" : session["carrito"][idx][1],
             "subtotal" : Producto.obtener_precio(session["carrito"][idx][0]) * session["carrito"][idx][1],
             "producto_id" : session["carrito"][idx][0],
-            "venta_cab_id" : Venta_cab.obtener_id_venta()
+            "venta_cab_id" : Venta_cab.obtener_id_venta(),
         }
         Venta_det.save(datos_venta_det)
         datos_producto = {

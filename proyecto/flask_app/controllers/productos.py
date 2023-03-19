@@ -7,6 +7,7 @@ from ..models.categoria import Categoria
 from ..models.marca import Marca
 from ..models.producto import Producto
 from ..models.user import User
+from ..models.venta_cab import Venta_cab
 
 @app.route('/dashboard/productos')
 def producto():
@@ -227,7 +228,7 @@ def mostrar_carrito():
             data_usuario = {
                 "id" : session["user_id"]
             }
-            return render_template("finalizar_pedido.html", productos = Producto.get_carrito(ids), usuario = User.getUserId(data_usuario))
+            return render_template("finalizar_pedido.html", productos = Producto.get_carrito(ids), usuario = User.getUserId(data_usuario), ventas = Venta_cab)
         else:
             flash("No tienes elementos agregados")
             return redirect("/")
