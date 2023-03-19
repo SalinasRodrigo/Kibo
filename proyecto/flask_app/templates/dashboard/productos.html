@@ -5,14 +5,14 @@
 {% block content %}
     <div class="row">
         <div class="col-lg-6">
-            <form class="form-group" action="{{url_for('registrar_categoria')}}" method="post">
+            <form class="form-group" action="{{url_for('registrar_categoria')}}" method="post" id="crear_categoria">
                 <label for="nombre_categoria">Categoría:</label>
                 <input type="text" name="nombre" id="nombre_categoria">
                 <button class="btn btn-primary" type="submit">Agregar</button>
             </form>
         </div>
         <div class="col-lg-6">
-            <form class="form-group" action="{{url_for('registrar_marca')}}" method="post">
+            <form class="form-group" action="{{url_for('registrar_marca')}}" method="post" id="crear_marca">
                 <label for="nombre_marca">Marca:</label>
                 <input type="text" name="nombre" id="nombre_marca">
                 <button class="btn btn-primary" type="submit">Agregar</button>
@@ -43,7 +43,7 @@
                 <option value="{{marca.id}}">{{marca.nombre}}</option>
             {% endfor%}
         </select>
-        <label>Categoria:</label>
+        <label>Categoría:</label>
         <select class="form-control" name="categoria">
             {%for categoria in categorias%}
                 <option value="{{categoria.id}}">{{categoria.nombre}}</option>
