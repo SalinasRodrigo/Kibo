@@ -1,4 +1,12 @@
 @import url('https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css');
+.navbar-inverse{
+    background-color: #343a40;
+}
+
+.side-nav{
+    background-color: #343a40 !important;
+}
+
 @media(min-width:768px) {
     body {
         margin-top: 50px;
@@ -97,7 +105,7 @@
     .side-nav li a:hover,
     .side-nav li a:focus {
         outline: none;
-        background-color: #1a242f !important;
+        background-color: #343a40 !important;
     }
 }
 
@@ -144,7 +152,7 @@
 }
 
 .navbar-brand img{
-    width: 50px;
+    width: 80px;
     
 }
 

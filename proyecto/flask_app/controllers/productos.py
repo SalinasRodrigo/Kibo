@@ -217,7 +217,7 @@ def eliminar_carrito(id):
     else:
         return redirect('/carrito')
     
-
+#TODO: Cambiar el modo de retorno, es decir en ves que devuelva a la pagina principal que devuelva solo el mensaje
 @app.route('/carrito')
 def mostrar_carrito():
     if "user_id" in session:
