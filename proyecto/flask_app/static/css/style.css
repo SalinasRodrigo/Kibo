@@ -163,3 +163,7 @@ aside{
     position: absolute;
     right: 5%;
 }
+
+.nav-link{
+    cursor: pointer;
+}
