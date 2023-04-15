@@ -1,0 +1,21 @@
+@media only screen and (max-width: 600px) {
+    .collapse{
+        padding-top: 5px;
+    }
+    #buscador {
+        width: 100%;
+    }
+    #tipo{
+        width: 54%;
+    }
+
+    aside{
+        display: none;
+    }
+  }
+
+@media only screen and (min-width: 1200px) {
+    #tipo{
+        width: 25%;
+    }
+}
