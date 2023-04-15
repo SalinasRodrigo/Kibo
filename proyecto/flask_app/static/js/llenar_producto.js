@@ -7,8 +7,8 @@ function completar_informacion(id){
         .then( response => response.json() )
         .then( async data =>  {
             $("option").each(function(){
-        	    $(this).removeAttr('selected');;
-        	});
+                $(this).removeAttr('selected');;
+            });
             $("#nombre_producto").val(data["nombre"])
             $("#descripcion").val(data["descripcion"])
             $("#precio").val(data["precio"])
