@@ -2,7 +2,7 @@
 
 {% block content %}
 
-        <main class="d-flex">
+        <main class="buscador_main d-flex">
             <aside class="pt-5 bg-dark">
                 <div class="sidebar pt-3 pl-3 pr-3 bg-dark text-light rounded">
                     <div class="form-group pt-3">
@@ -29,9 +29,9 @@
                     </div>
                 </div>
             </aside>
-            <section class="pl-5 d-flex flex-wrap w-75 pb-5">
+            <section class="d-flex flex-wrap pb-5">
                 {%for producto in productos%}
-                    <div class="card mt-3 mr-3" style="width: 18rem;">
+                    <div class="buscador_card card mt-3 mr-3" style="width: 18rem;">
                         <p class="descuento">-{{producto.descuento}}%</p>
                         <img class="card-img-top" src="{{producto.imagen}}" alt="Card image cap">
                         <div class="card-body">

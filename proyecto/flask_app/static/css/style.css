@@ -51,6 +51,7 @@
     background-color: rgb(191, 0, 25);
     width: 2.5em;
     border-radius: 15%;
+    position: absolute;
 }
 
 

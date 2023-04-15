@@ -53,7 +53,8 @@ def index():
                 lista=[]
             j+=1
     
-    return render_template('index.html', lista_ultimos = ultimos_productos, lista_descuentos = descuento_productos)
+    return render_template('index.html', lista_ultimos = ultimos_productos, lista_descuentos = descuento_productos,
+                             lista_ultimos_2 = ultimos_db, lista_descuentos_2 = descuentos_db)
 
 @app.route('/buscador', methods=['POST'])
 def buscador():
