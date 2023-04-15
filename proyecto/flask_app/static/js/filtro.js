@@ -7,7 +7,7 @@ $(document).ready(function(){
         $("section .card").each(function() {
             var a = $(this).find(".precio_total").text();
             console.log(a)
-            if (parseInt(a)<max & parseInt(a)>min){
+            if (parseInt(a)<=max & parseInt(a)>=min){
                 $(this).show();
             }
             else{

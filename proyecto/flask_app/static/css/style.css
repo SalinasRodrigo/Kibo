@@ -164,21 +164,20 @@ aside{
 }
 
 #bt_finalizar{
-<<<<<<< HEAD
-
-}
-
-/*-----------Footer-------------*/
-footer img{
-    width: 30px;
-    height: 30px;
-    margin-right: 5px;
-=======
     position: absolute;
     right: 5%;
 }
 
 .nav-link{
     cursor: pointer;
->>>>>>> 83946401236e074ac973b257400cf491fb95b1fe
+}
+
+
+
+
+/*-----------Footer-------------*/
+footer img{
+    width: 30px;
+    height: 30px;
+    margin-right: 5px;
 }
