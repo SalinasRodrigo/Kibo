@@ -1,10 +1,10 @@
 {% extends 'base.html' %}
 
 {% block content %}
-        <main class="ml-1">
+        <main class="main_finalizar ml-1">
             <div class="mt-5 pt-2 pr-2">
                 <form action="">
-                    <div class="d-flex justify-content-around">
+                    <div class="contenido_finalizar justify-content-around">
                         <div class="lista_productos">
                             <table class="table table-hover">
                                 <thead class="text-right">
@@ -51,8 +51,8 @@
                                     <input type="email" class="form-control" id="email" name="email" value="{{usuario.correo}}" disabled>
                                 </div>
                             </div>
-                            <div class="row pt-3 pl-1 pr-1">
-                                <div class="form-group w-100">
+                            <div class="row justify-content-center pt-3 pl-1 pr-1">
+                                <div class="direccion_finalizar form-group w-100">
                                     <label for="direccion">Dirección</label>
                                     <input type="text" class="form-control w-100" id="direccion" name="direccion" value="{{usuario.direccion}}" disabled>
                                 </div>
