@@ -3,11 +3,23 @@ from flask import render_template, request, redirect, session, flash, jsonify
 import os
 from pathlib import Path
 from werkzeug.utils import secure_filename
+from flask_mail import Mail, Message
+
 from ..models.categoria import Categoria
 from ..models.marca import Marca
 from ..models.producto import Producto
 from ..models.user import User
 from ..models.venta_cab import Venta_cab
+
+app.config['MAIL_SERVER'] = "smtp.gmail.com"
+app.config['MAIL_PORT'] = 465
+app.config['MAIL_USERNAME'] = "kibo.ventas02@gmail.com"
+app.config['MAIL_PASSWORD'] = "viyfsaiyxdxfomne" 
+app.config['MAIL_USE_TLS'] = False
+app.config['MAIL_USE_SSL'] = True
+app.config['MAIL_DEFAULT_SENDER'] = "kibo.ventas02@gmail.com"
+
+mail = Mail(app)
 
 @app.route('/dashboard/productos')
 def producto():
@@ -44,6 +56,7 @@ def registrar_producto():
             "imagen": path_database,
             "stock_ideal": request.form["stock_ideal"],
             "stock_disponible": request.form["stock_disponible"],
+            "stock_minimo": request.form["stock_minimo"],
             "marca_id": request.form["marca"],
             "categoria_id": request.form["categoria"]
         }
@@ -78,8 +91,30 @@ def registrar_marca():
 def actualizar_producto():
     return render_template('/dashboard/actualizar_producto.html', marcas = Marca.get_all(), categorias = Categoria.get_all(), productos = Producto.get_all())
 
+@app.route('/dashboard/reporte')
+def mostrar_reporte():
+    return render_template('/dashboard/reporte_stock.html', productos = Producto.get_stocks_minimos())
+
 @app.route('/reponer_stock/<int:id>')
 def reponer_stock(id):
+    if Producto.get_stock(id) == 0:
+        clientes = Producto.get_correos_alerta(id)
+        if clientes != None:
+                producto = Producto.get_one(id)
+                msg = Message(recipients=clientes,
+                                subject="¡El producto que buscabas está de vuelta en stock! ¡No te lo pierdas!"
+                            )
+                # Define el contenido del mensaje
+                msg.html = f"""<h3>¡Estimado cliente!</h3>
+                <p>¡Grandes noticias! El producto, {producto['nombre']}, que tanto buscabas ya se encuentra disponible nuevamente. ¡No dejes pasar esta oportunidad única para hacerte con él!</p>
+                <img src='cid:image1' style='max-width: 400px; height: auto;'>
+                <p>No pierdas más tiempo y haz tu compra ahora mismo. ¡Estamos seguros de que te encantará!</p>
+                <p>Gracias por confiar en Kibo como tu tienda de preferencia.</p>"""
+
+                with app.open_resource(producto['imagen'][1:]) as fp:
+                        msg.attach("image.jpg", "image/jpeg", fp.read(), "inline", headers=[['Content-ID','<image1>']])
+                mail.send(msg)
+                Producto.delete_producto_lista(id)
     Producto.update_stock(id)
     return redirect("/dashboard/modificar_producto")
 
@@ -122,6 +157,7 @@ def proceso_actualizar_producto():
                 "imagen": path_database,
                 "stock_ideal": request.form["stock_ideal"],
                 "stock_disponible": request.form["stock_disponible"],
+                "stock_minimo": request.form["stock_minimo"],
                 "descuento": request.form["descuento"],
                 "marca_id": request.form["marca"],
                 "categoria_id": request.form["categoria"]
@@ -134,6 +170,7 @@ def proceso_actualizar_producto():
                 "precio": request.form["precio"],
                 "stock_ideal": request.form["stock_ideal"],
                 "stock_disponible": request.form["stock_disponible"],
+                "stock_minimo": request.form["stock_minimo"],
                 "descuento": request.form["descuento"],
                 "marca_id": request.form["marca"],
                 "categoria_id": request.form["categoria"]
@@ -150,7 +187,28 @@ def producto_seleccinado(id):
         return render_template('producto_seleccionado.html', producto = producto, funciones = Producto)
     else:
         return redirect("/")
+    
+@app.route("/process_notificaciones")
+def obtener_lista_productos():
+    bajo_stock = Producto.get_stocks_minimos()
+    return jsonify(bajo_stock)
 
+@app.route('/lista_deseo_add', methods=['POST'])
+def agregar_lista_deseo():
+    if request.method == 'POST':
+        if "user_id" in session:
+            data = {
+                "usuario_id": session['user_id'],
+                "producto_id": request.form["id"]
+            }
+            Producto.save_lista(data)
+            flash("Producto agregado correctamente")
+            return redirect('/')
+        else:
+            flash("Inicia sesión para poder agregar productos a tu lista de deseos")
+            return redirect('/producto_seleccionado/'+request.form["id"])
+    else:
+        return redirect('/')
 
 @app.route('/carrito_add', methods=['POST'])
 def agregar_carrito():
