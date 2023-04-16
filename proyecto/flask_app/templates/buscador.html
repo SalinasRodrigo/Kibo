@@ -32,7 +32,7 @@
             <section class="d-flex flex-wrap pb-5">
                 {%for producto in productos%}
                     <div class="buscador_card card mt-3 mr-3" style="width: 18rem;">
-                        <p class="descuento">-{{producto.descuento}}%</p>
+                        <p class="descuento">{% if producto.descuento == 0 %}{% else %}-{{producto.descuento}}%{%endif%}</p>
                         <img class="card-img-top" src="{{producto.imagen}}" alt="Card image cap">
                         <div class="card-body">
                             <a href="/producto_seleccionado/{{producto.id}}">

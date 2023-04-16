@@ -3,9 +3,10 @@
 {% block content %}
 
     <main class="d-flex justify-content-center mt-5 producto">
-            <div class="card mb-3" style="max-width: 1000px;">
+            <div class="card mb-3" style="max-width: 1000px;">         
                 <div class="row g-0 mt-1">
                     <div class="col-md-5">
+                        <p class="descuento">{% if producto.descuento == 0 %}{% else %}-{{producto.descuento}}%{%endif%}</p>
                         <img src="{{producto.imagen}}" class="img-fluid rounded-start" alt="Card image cap">
                     </div>
                     <div class="col-md-7">
