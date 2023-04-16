@@ -127,4 +127,33 @@
         })  
     </script>
 
+    <script>
+
+        function Filtrado() {
+        var input, filter, table, tr, td, i, j, txtValue;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("table-body");
+        tr = table.getElementsByTagName("tr");
+        for (i = 0; i < tr.length; i++) {
+            // Ocultamos por defecto todas las filas
+            tr[i].style.display = "none";
+
+            // Recorremos cada celda de la fila para buscar coincidencias
+            for (j = 0; j < tr[i].cells.length; j++){
+                td = tr[i].cells[j];
+                if (td) {
+                    txtValue = td.textContent || td.innerText;
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        // Si hay coincidencia, mostramos la fila y salimos del bucle interno
+                        tr[i].style.display = "";
+                        break;
+                        }
+                    }  
+                }
+            }
+        }
+
+    </script>
+
 </body>

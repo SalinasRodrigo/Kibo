@@ -10,7 +10,7 @@
 }
 
 #buscador {
-    width: 800px;
+    width: 50%;
 }
 
 /* Carruser */
@@ -51,6 +51,7 @@
     background-color: rgb(191, 0, 25);
     width: 2.5em;
     border-radius: 15%;
+    position: absolute;
 }
 
 
@@ -143,6 +144,10 @@ aside{
 
 /*Producto seleccionado*/
 
+.producto{
+    margin-bottom: 12%;
+}
+
 #prod-especifico form input {
     width: 30%;
 }
@@ -162,4 +167,18 @@ aside{
 #bt_finalizar{
     position: absolute;
     right: 5%;
+}
+
+.nav-link{
+    cursor: pointer;
+}
+
+
+
+
+/*-----------Footer-------------*/
+footer img{
+    width: 30px;
+    height: 30px;
+    margin-right: 5px;
 }
