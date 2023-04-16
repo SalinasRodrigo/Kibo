@@ -8,8 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
     fetch('https://dolar.melizeche.com/api/1.0/')
         .then(response => response.json())
         .then(json =>  $("#amount").val(total/((json.dolarpy.cambioschaco.venta+json.dolarpy.cambioschaco.compra)/2))
-        .catch(err => console.log('Solicitud fallida', err))
-            )
+        )
 });
 
 

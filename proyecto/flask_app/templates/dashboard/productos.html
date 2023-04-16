@@ -1,5 +1,7 @@
 {% extends '/dashboard/dashboard.html' %}
 
+{% block scripts %}{% endblock %}
+
 {% block h1 %}Productos{% endblock %}
 
 {% block content %}
@@ -37,6 +39,8 @@
         <input class="form-control" type="number" name="stock_ideal" id="stock_ideal">
         <label for="stock_disponible">Stock Disponible:</label>
         <input class="form-control" type="number" name="stock_disponible" id="stock_disponible">
+        <label for="stock_minimo">Stock Mínimo:</label>
+        <input class="form-control" type="number" name="stock_minimo" id="stock_minimo">
         <label>Marca:</label>
         <select class="form-control" name="marca">
             {%for marca in marcas%}

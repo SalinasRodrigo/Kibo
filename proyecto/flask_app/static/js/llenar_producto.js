@@ -14,6 +14,7 @@ function completar_informacion(id){
             $("#precio").val(data["precio"])
             $("#stock_ideal").val(data["stock_ideal"])
             $("#stock_disponible").val(data["stock_disponible"])
+            $("#stock_minimo").val(data["stock_minimo"])
             $("#descuento").val(data["descuento"])
             $('option:selected', this).remove();
             console.log("Marca: " + data["marca_id"])

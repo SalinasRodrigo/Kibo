@@ -3,6 +3,7 @@ from flask import render_template, request, redirect, session, flash
 import os
 from pathlib import Path
 from werkzeug.utils import secure_filename
+
 from ..models.categoria import Categoria
 from ..models.marca import Marca
 from ..models.producto import Producto
@@ -52,7 +53,6 @@ def index():
                 descuento_productos.append(lista)
                 lista=[]
             j+=1
-    
     return render_template('index.html', lista_ultimos = ultimos_productos, lista_descuentos = descuento_productos,
                              lista_ultimos_2 = ultimos_db, lista_descuentos_2 = descuentos_db)
 
@@ -133,7 +133,6 @@ def login():
 
     else:
         return redirect('/')
-    
 
 @app.route('/dashboard')
 def dashboard():
