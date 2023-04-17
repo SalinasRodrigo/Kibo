@@ -72,5 +72,8 @@
     .main_finalizar{
         min-height: 550px;
     }
+    .card{
+        max-height: 468px;
+    }
     
 }
